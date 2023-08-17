@@ -24,7 +24,7 @@ const Navbar = () => {
   const handleLanguageChange = () => {};
 
   return (
-    <div className="fixed left-0 top-0 w-full shadow-md">
+    <div className="left-0 top-0 w-full shadow-md">
       <div className="items-center justify-between bg-white px-8 py-6 md:flex">
         <div className="flex cursor-pointer items-center text-2xl font-bold text-teal-600">
           <span className="text-4xl">
@@ -41,7 +41,7 @@ const Navbar = () => {
         </div>
 
         <div
-          className={`!important absolute left-0 z-[-1] flex w-full flex-col gap-7 pb-8 pl-8 pr-8 pt-5 shadow-md transition-all duration-500 ease-in md:static md:z-auto md:flex md:w-auto md:flex-row md:items-center md:bg-white md:pb-0 md:pl-0 md:shadow-none ${
+          className={`!important absolute left-0 z-50 flex w-full flex-col gap-7 bg-gray-50 pb-8 pl-8 pr-8 pt-5 shadow-md transition-all duration-500 ease-in md:static md:z-auto md:flex md:w-auto md:flex-row md:items-center md:bg-white md:pb-0 md:pl-0 md:shadow-none ${
             open ? "top-20 opacity-100" : "top-[-490px]"
           } opacity-0 md:opacity-100`}
         >
