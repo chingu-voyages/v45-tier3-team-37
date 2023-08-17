@@ -5,8 +5,20 @@ import { IoIosBook } from "react-icons/io";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { MdClose } from "react-icons/md";
 
+type CountryProps = {
+  abbreviation: string;
+  value: string;
+};
+
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+
+  const countries: CountryProps[] = [
+    { abbreviation: "ENG", value: "English" },
+    { abbreviation: "ITA", value: "Italian" },
+    { abbreviation: "ESP", value: "Espanol" },
+    { abbreviation: "POR", value: "Portuguese" },
+  ];
 
   //TODO: Language Change function implementation goes here
   const handleLanguageChange = () => {};
@@ -35,10 +47,11 @@ const Navbar = () => {
         >
           <ul className="flex flex-col gap-7 md:static md:z-auto md:flex md:w-auto md:flex-row md:items-center md:gap-7">
             <select className="w-16 bg-white" onChange={handleLanguageChange}>
-              <option value="ENG">ENG</option>
-              <option value="ITA">ITA</option>
-              <option value="POR">POR</option>
-              <option value="ESP">ESP</option>
+              {countries.map((country) => (
+                <option key={country.value} value={country.value}>
+                  {country.abbreviation}
+                </option>
+              ))}
             </select>
             <li className="w-24 cursor-pointer rounded-md border-2 border-teal-600 px-3 py-1.5 font-semibold transition-all duration-300 hover:bg-teal-600 hover:text-white">
               <a href="/signup">SIGN UP</a>
