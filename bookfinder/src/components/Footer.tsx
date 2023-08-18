@@ -3,10 +3,10 @@ import { FaFacebook, FaInstagram, FaGithub } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <div className="top-64 flex h-full w-full flex-col gap-10 bg-gray-300 pb-28 pl-12 pt-16 md:flex-row md:gap-56">
+    <div className="top-64 flex h-full w-full flex-col gap-10 bg-gray-300 pb-28 pl-12 pt-16 xl:flex-row xl:gap-56">
       <div className="flex flex-col gap-5">
         <div className="text-xl font-semibold">Follow Us</div>
-        <div className="flex gap-5 text-2xl">
+        <div className="flex gap-5 text-3xl">
           <a href="/" className="hover:text-teal-600">
             <FaFacebook />
           </a>
