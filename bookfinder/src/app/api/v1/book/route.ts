@@ -1,80 +1,5 @@
+import { GoogleBookVolume } from "@/lib/types";
 import { NextResponse } from "next/server";
-
-interface VolumeInfo {
-  title: string;
-  authors: string[];
-  publisher: string;
-  publishedDate: string;
-  description: string;
-  industryIdentifiers: {
-    type: string;
-    identifier: string;
-  }[];
-  readingModes: {
-    text: boolean;
-    image: boolean;
-  };
-  pageCount: number;
-  printType: string;
-  categories: string[];
-  averageRating: number;
-  ratingsCount: number;
-  maturityRating: string;
-  allowAnonLogging: boolean;
-  contentVersion: string;
-  panelizationSummary: {
-    containsEpubBubbles: boolean;
-    containsImageBubbles: boolean;
-  };
-  imageLinks: {
-    smallThumbnail: string;
-    thumbnail: string;
-  };
-  language: string;
-  previewLink: string;
-  infoLink: string;
-  canonicalVolumeLink: string;
-}
-
-interface SaleInfo {
-  country: string;
-  saleability: string;
-  isEbook: boolean;
-}
-
-interface AccessInfo {
-  country: string;
-  viewability: string;
-  embeddable: boolean;
-  publicDomain: boolean;
-  textToSpeechPermission: string;
-  epub: {
-    isAvailable: boolean;
-    acsTokenLink: string;
-  };
-  pdf: {
-    isAvailable: boolean;
-    acsTokenLink: string;
-  };
-  webReaderLink: string;
-  accessViewStatus: string;
-  quoteSharingAllowed: boolean;
-}
-
-interface SearchInfo {
-  textSnippet: string;
-}
-
-interface BookVolume {
-  kind: string;
-  id: string;
-  etag: string;
-  selfLink: string;
-  volumeInfo: VolumeInfo;
-  saleInfo: SaleInfo;
-  accessInfo: AccessInfo;
-  searchInfo: SearchInfo;
-}
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -105,7 +30,7 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "No results found" }, { status: 500 });
   }
 
-  const books = items.map((book: BookVolume) => {
+  const books = items.map((book: GoogleBookVolume) => {
     return {
       id: book.id,
       title: book.volumeInfo.title,
@@ -113,6 +38,7 @@ export async function GET(request: Request) {
       author: book.volumeInfo.authors,
       publisher: book.volumeInfo.publisher,
       imageLinks: book.volumeInfo.imageLinks,
+      identifier: book.volumeInfo.industryIdentifiers[0].identifier,
     };
   });
 
