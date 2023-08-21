@@ -2,7 +2,7 @@
 
 ## Book Finder
     
-    The Book Finder Web App is an innovative online platform designed to simplify the process of finding and purchasing books across multiple websites. This application offers users a convenient way to explore a vast collection of books from various online retailers, compare prices, and make informed purchasing decisions.
+The Book Finder Web App is an innovative online platform designed to simplify the process of finding and purchasing books across multiple websites. This application offers users a convenient way to explore a vast collection of books from various online retailers, compare prices, and make informed purchasing decisions.
 
 
 ## Table of contents
