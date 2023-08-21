@@ -23,6 +23,5 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/components/SearchInput.tsx"],
   "exclude": ["node_modules"]
 }
