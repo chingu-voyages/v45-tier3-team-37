@@ -1,34 +1,102 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Chingu Voyage45 Tier3 Team 37
 
-## Getting Started
+## Book Finder
+    
+    The Book Finder Web App is an innovative online platform designed to simplify the process of finding and purchasing books across multiple websites. This application offers users a convenient way to explore a vast collection of books from various online retailers, compare prices, and make informed purchasing decisions.
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+## Table of contents
+
+- [Chingu Voyage45 Tier3 Team 37](#chingu-voyage45-tier3-team-37)
+  - [Book Finder](#book-finder)
+  - [Table of contents](#table-of-contents)
+  - [Key Features](#key-features)
+  - [Design protoype](#design-protoype)
+  - [Screenshots](#screenshots)
+  - [Tools and Technologies](#tools-and-technologies)
+    - [UX/UI](#uxui)
+    - [Frontend](#frontend)
+    - [Backend](#backend)
+    - [Devops](#devops)
+  - [Setup](#setup)
+  - [Sample Code](#sample-code)
+  - [Authors](#authors)
+
+## Key Features
+
+**Price Comparison:** With our app, users can effortlessly view the prices of their desired books from different online retailers, helping them identify the best deals and discounts.
+
+**Favorites List:** Found a book you're interested in? Add it to your favorites list! This feature allows users to curate their own personalized collection of books they're considering or simply wish to keep track of for future reference.
+
+**Discount Notifications:** Never miss a deal again! Our app goes the extra mile by sending users notifications when a book they've favorited receives a discount. This ensures that users stay informed about cost-saving opportunities for their favorite reads.
+
+**Direct Purchase Links:** When users discover a book they're eager to buy, our app provides direct links to the respective seller's website. This seamless integration ensures a smooth transition from discovery to purchase, allowing users to complete their transactions with ease.
+
+## Design protoype
+
+[Our project prototype on FIGMA](https://www.figma.com/file/ep8G9FmBjyI97BPPUsV9hZ/book-price-finder?type=design&node-id=0%3A1&mode=design&t=IG2ZP95Zdr7U8EZE-1)
+
+## Screenshots
+## Tools and Technologies
+
+### UX/UI
+
+- Figma
+
+### Frontend
+
+- Tailwind Css
+
+
+
+### Backend
+
+- NextJS
+- React
+- Javascript
+- MongoDB Atlas
+- Clerk
+
+### Devops
+
+- Netlify
+
+## Setup
+
+To get started with Book Finder Web App, follow these steps:
+
+- Clone the repository to your local machine.
+- Install the necessary dependencies using npm install.
+- Start the development server using `npm run dev` in the CLI.
+- In addition, create a .env.local file in the root directory with the following variables:
+
+```
+# Clerk Credentials
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_aHVtYW5lLWNsYW0tMTguY2xlcmsuYWNjb3VudHMuZGV2JA
+CLERK_SECRET_KEY=sk_test_crx89UyLvJGJah61IhPAVq76mudzAhF4cwvi6qBboU
+
+
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/signin
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/signup
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open your browser and navigate to the provided URL to explore and discover books!
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
+## Sample Code
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Authors
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/EmmanuelOloke"><img src="https://avatars.githubusercontent.com/u/16335826?v=4" width="100px;" alt="Emmanuel Oloke"/><br /><sub><b>Emmanuel Oloke</b></sub></a><br /><a href="https://github.com/EmmanuelOloke?tab=repositories" title="Projects">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/ceifeirocv"><img src="https://avatars.githubusercontent.com/u/20646833?v=4" width="100px;" alt="Jair Almeida Oliveira"/><br /><sub><b>Jair Almeida Oliveira</b></sub></a><br /><a href="https://github.com/ceifeirocv?tab=repositories" title="Projects">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Pio-js"><img src="https://avatars.githubusercontent.com/u/71008079?v=4" width="100px;" alt="Pio Saija"/><br /><sub><b>Pio Saija</b></sub></a><br /><a href="https://github.com/Pio-js?tab=repositories" title="Projects">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/yildiztugba"><img src="https://avatars.githubusercontent.com/u/78135546?v=4" width="100px;" alt="Tugba Yildiz"/><br /><sub><b>Tugba Yildiz</b></sub></a><br /><a href="https://github.com/yildiztugba?tab=repositories" title="Projects">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/frugalcodes"><img src="https://avatars.githubusercontent.com/u/91540220?v=4" width="100px;" alt="Samuel Igwe"/><br /><sub><b>Samuel Igwe</b></sub></a><br /><a href="https://github.com/frugalcodes?tab=repositories" title="Projects">💻</a></td>
+    </tr>
+     </tbody>
+</table>
