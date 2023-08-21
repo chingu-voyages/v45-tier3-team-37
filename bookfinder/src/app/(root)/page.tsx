@@ -3,12 +3,8 @@ import Navbar from "@/components/Navbar";
 
 export default function Home() {
   return (
-    <main className="flex flex-col bg-inherit">
-      <Navbar />
-      <section className="h-96">
-        <div>Main content of the page goes here</div>
-      </section>
-      <Footer />
-    </main>
+    <section className="flex h-screen items-center justify-center">
+      <div>Main content of the page goes here</div>
+    </section>
   );
 }
