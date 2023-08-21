@@ -46,13 +46,15 @@ The Book Finder Web App is an innovative online platform designed to simplify th
 ### Frontend
 
 - Tailwind Css
+- NextJS
+- React
+- Javascript
 
 
 
 ### Backend
 
 - NextJS
-- React
 - Javascript
 - MongoDB Atlas
 - Clerk
