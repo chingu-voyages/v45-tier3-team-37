@@ -66,24 +66,10 @@ The Book Finder Web App is an innovative online platform designed to simplify th
 To get started with Book Finder Web App, follow these steps:
 
 - Clone the repository to your local machine.
+- Create a .env.local file in the root directory with variables that we provide you to it if requested
 - Install the necessary dependencies using npm install.
 - Start the development server using `npm run dev` in the CLI.
-- In addition, create a .env.local file in the root directory with the following variables:
-
-```
-# Clerk Credentials
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_aHVtYW5lLWNsYW0tMTguY2xlcmsuYWNjb3VudHMuZGV2JA
-CLERK_SECRET_KEY=sk_test_crx89UyLvJGJah61IhPAVq76mudzAhF4cwvi6qBboU
-
-
-NEXT_PUBLIC_CLERK_SIGN_IN_URL=/signin
-NEXT_PUBLIC_CLERK_SIGN_UP_URL=/signup
-NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/
-NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/
-```
-
-Open your browser and navigate to the provided URL to explore and discover books!
-
+- Open your browser and navigate to the provided URL to explore and discover books!
 
 
 ## Sample Code
