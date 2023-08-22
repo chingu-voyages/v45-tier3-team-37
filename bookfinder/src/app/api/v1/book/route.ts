@@ -24,6 +24,7 @@ export async function GET(request: Request) {
   }
 
   const data = await fetch(googleUrl);
+
   const { items } = await data.json();
 
   if (!items) {
@@ -38,7 +39,11 @@ export async function GET(request: Request) {
       author: book.volumeInfo.authors,
       publisher: book.volumeInfo.publisher,
       imageLinks: book.volumeInfo.imageLinks,
-      identifier: book.volumeInfo.industryIdentifiers[0].identifier,
+      identifier:
+        book.volumeInfo.industryIdentifiers === undefined
+          ? ""
+          : book.volumeInfo.industryIdentifiers[0].identifier,
+      date: book.volumeInfo.publishedDate,
     };
   });
 
