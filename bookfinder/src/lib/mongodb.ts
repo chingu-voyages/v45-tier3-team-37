@@ -6,9 +6,9 @@ export default function connectMongoDB() {
     console.log("Connect to MongoDB");
   } catch (error) {
     if (error instanceof Error) {
-      console.log(error.message); // Known error type
+      console.error(error.message); // Known error type
     } else {
-      console.log("An unknown error has occurred:", error);
+      console.error("An unknown error has occurred:", error);
     }
   }
 }
