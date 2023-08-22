@@ -1,5 +1,4 @@
-import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
+
 import BooksView from "@/components/BooksView";
 
 const books = [
@@ -13,13 +12,9 @@ const books = [
 
 export default function Home() {
   return (
-    <main className="flex flex-col bg-inherit">
-      <Navbar />
       <section>
         <div>Main content of the page goes here</div>
         <BooksView books={books} />
       </section>
-      <Footer />
-    </main>
   );
 }
