@@ -65,7 +65,7 @@ const Navbar = () => {
                 {
                   // TODO: Create page for favorites, and also create a card to show when there are no favorites.
                 }
-                <Link className="hover:text-teal-600" href="/">
+                <Link className="hover:text-teal-600" href="/favourites">
                   Favorites
                 </Link>
                 <button
