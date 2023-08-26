@@ -1,14 +1,19 @@
-const PriceList = () => {
+import Link from "next/link";
+import { getPrice } from "@/utils/fetcher";
 
-    const books = [
-        {price: "19,00", rating: "", stock: true, seller: "Amazon"},
-        {price: "18,00", rating: "", stock: true, seller: "Amazon"},
-        {price: "19,50", rating: "", stock: false, seller: "Amazon"},
-        {price: "17,00", rating: "", stock: true, seller: "Amazon"},
-        {price: "19,90", rating: "", stock: true, seller: "Amazon"}
-    ];
+const PriceList = async ({id}:{id:string}) => {
 
-    const currency = "€"
+    const bookSeller = await getPrice(id);
+
+    if (bookSeller[0] === null) {
+        return (
+            <div className="text-center py-10">
+                This book is not for sale
+            </div>
+        );
+    }
+
+    //to do - rating component to show stars
 
     return (
         <div className="flex flex-col p-3">
@@ -20,19 +25,36 @@ const PriceList = () => {
                 </select>
             </div>
             {
-                books.map((book, index) => (
+                bookSeller?.map((book, index) => (
                     <div key={index} className="grid grid-cols-[2fr,1fr,1fr,1fr] border box-border p-2 mb-2">
                         <div className="grid sm:grid-cols-2 grid-cols-1">
                             <div className="flex">
-                                <div>{currency}</div>
-                                <div>{book.price}</div>
+                                <div>{book.currency}</div>
+                                <div className="ml-1">
+                                    {
+                                        book.price ? book.price : "No price"
+                                    }
+                                </div>
                             </div>
-                            <div className="">⭐⭐⭐⭐⭐</div>
+                            {
+                                book.rating ?
+                                <div className="flex">⭐⭐⭐⭐⭐
+                                    <div className="ml-1">({book.ratingsCount ? book.ratingsCount: null})</div>
+                                </div>:
+                                <div>Not rated yet</div>
+                            }
+                            
                         </div>
-                        <div>{book.stock ? "in stock" : "out of stock"}</div>
+                        <div className="text-center">{book.price ? "in stock" : "out of stock"}</div>
                         <div>{book.seller}</div>
                         <div className="flex justify-end">
-                            <button className="bg-teal-600 text-white w-full md:w-[70%]">Go to seller</button>
+                            <Link
+                                className="bg-teal-600 text-white text-center w-full md:w-[70%] transition duration-200 hover:bg-white  hover:text-teal-600"
+                                href={book.buyLink}
+                                target="blank"
+                                >
+                                    Go to seller
+                                </Link>
                         </div>
                     </div>
                 ))

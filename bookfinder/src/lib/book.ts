@@ -1,14 +1,19 @@
 export interface IBookPreview {
 	id: string;
 	title: string;
-	image: string;
+	imageLinks: string;
 	author: string;
 	publisher: string;
-	/* year: string; */
     description: string;
+	identifier: string;
+	date: string;
 }
 
-export interface IBook extends IBookPreview{
-    currency: string; //not sure if it must be here
+export interface IPrice {
+	seller: string;
+	currency: string;
     price: string;
+	rating: string;
+	ratingsCount: string;
+	buyLink: string;
 }
