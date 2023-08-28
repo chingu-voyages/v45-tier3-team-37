@@ -14,7 +14,7 @@ const InputSearch = () => {
             className="w-full sm:flex-grow border border-gray-300 px-3 py-2 rounded-md mb-2 sm:mb-0 sm:mr-2 focus:outline-none"
             placeholder="Enter your search..."
           />
-          <button className="w-full sm:w-auto bg-teal-600 text-white px-4 py-2 rounded-md mr-0 md:mr-7">
+          <button className="w-full sm:w-auto bg-teal-600 text-white px-4 py-2 rounded-md">
             SEARCH
           </button>
         </div>
