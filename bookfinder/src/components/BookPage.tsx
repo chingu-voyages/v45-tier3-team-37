@@ -27,7 +27,6 @@ const BookPage = ({...rest}) => {
                 </div>
                 <div>{author ? author : "Author not available"}</div>
                 <div>{publisher ? publisher : "Publisher not available"}</div>
-                {/* <div>{book.year}</div> */}
                 <FavoriteBook />
                 <div>
                     <div className="text-lg font-semibold">

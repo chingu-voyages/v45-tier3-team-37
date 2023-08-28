@@ -2,17 +2,11 @@
 
 import BooksGrid from "./BooksGrid";
 import BookCard from "./BookCard";
-import { useEffect, useState } from "react";
-import { searchBooks } from "@/utils/fetcher";
+import { IBookPreview } from "@/lib/book";
 
-const BooksView = () => {
+type IProps = IBookPreview;
 
-	const [ books, setBooks ] = useState<any>([]);
-
-	useEffect(() => {
-		searchBooks({search: "garden"})
-		.then(data => setBooks(data))
-	}, []);
+const BooksView = ({books}:{books:IProps[]}) => {
 
 	return (
 		<BooksGrid 
@@ -21,14 +15,14 @@ const BooksView = () => {
 			{books?.map((book:any) => (
 				<BookCard
 					id={book.id}
-    				title={book.title}
+					title={book.title}
 					imageLinks={book.imageLinks}
-    	            author={book.author}
+					author={book.author}
 					publisher={book.publisher}
 					description={book.description}
 					identifier={book.identifier}
 					date={book.date}
-    	            key={book.id}
+					key={book.id}
 				/>
 			))}
 		</BooksGrid>

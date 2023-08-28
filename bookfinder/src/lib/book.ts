@@ -13,7 +13,7 @@ export interface IPrice {
 	seller: string;
 	currency: string;
     price: string;
-	rating: string;
+	rating: number;
 	ratingsCount: string;
 	buyLink: string;
 }

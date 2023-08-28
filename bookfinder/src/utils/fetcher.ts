@@ -26,15 +26,12 @@ export const searchBooks = async ({
 	);
 
 	const url = absoluteUrl(`/api/v1/book?${Object.keys(filteredParams)}=` + Object.values(filteredParams));
-	console.log(url);
 
 	const res = await fetch(url, {
 		cache: "no-store"
 	});
 
 	const json = res.json();
-	console.log(await json);
-	
 
 	if (res.ok) return json;
 

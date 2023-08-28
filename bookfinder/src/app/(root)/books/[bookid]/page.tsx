@@ -1,5 +1,6 @@
 import PriceList from "@/components/PriceList";
 import BookPage from "@/components/BookPage";
+import { getPrice } from "@/utils/fetcher";
 
 const Page = async ({
     params,
@@ -18,12 +19,19 @@ const Page = async ({
         date: string;
     }}) => {
     
-    const id = params.bookid;    
+    const id = params.bookid;
+    console.log('id: ',id);
+    
+    const bookSeller = await getPrice(id);
+
+    if (!bookSeller) {
+        return <h3>Something went wrong! Please try again.</h3>
+    }
 
     return (
         <div className="w-full">
             <BookPage {...searchParams} />
-            <PriceList id={id}/>
+            <PriceList bookSeller={bookSeller}/>
         </div>
     );
 }
