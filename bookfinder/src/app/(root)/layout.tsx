@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { Input } from "postcss";
+import InputSearch from "@/components/InputSearch";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,8 +26,11 @@ export default function RootLayout({
       <html lang="en">
         <body className={inter.className}>
           <header>
+            
             <Navbar />
+            <InputSearch />
             {/* Call To Actions??? */}
+            
           </header>
           <main className="flex flex-col bg-inherit">{children}</main>
           <Footer />
