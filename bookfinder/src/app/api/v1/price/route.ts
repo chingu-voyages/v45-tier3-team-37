@@ -3,38 +3,36 @@ import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const isbn = searchParams.get("isbn");
+  const id = searchParams.get("id");  
 
-  if (!isbn) {
+  if (!id) {
     return NextResponse.json({ error: "No results found" }, { status: 500 });
   }
 
   let bookSales = [];
 
   const googleResponse = await fetch(
-    `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`,
+    `https://www.googleapis.com/books/v1/volumes/${id}`,
   );
 
   if (googleResponse) {
-    const { items } = await googleResponse.json();
-    const googlePrices = items.map((book: GoogleBookVolume) => {
-      console.log(book.saleInfo.saleability);
+    const book = await googleResponse.json();
 
-      if (book.saleInfo.saleability === "FOR_SALE") {
-        return {
-          identifier: isbn,
-          seller: "Google",
-          price: book.saleInfo.listPrice?.amount,
-        };
-      } else if (book.saleInfo.saleability === "FREE") {
-        return {
-          identifier: isbn,
-          seller: "Google",
-          price: "FREE",
-        };
-      }
-    });
-    bookSales.push(...googlePrices);
+    if (book.saleInfo.saleability === "FOR_SALE") {
+      bookSales.push({
+        seller: "Google",
+        currency: book.saleInfo.listPrice?.currencyCode,
+        price: book.saleInfo.listPrice?.amount,
+        rating: book.volumeInfo.averageRating || "",
+        ratingsCount: book.volumeInfo.ratingsCount || "",
+        buyLink: book.saleInfo.buyLink,
+      });
+    } else if (book.saleInfo.saleability === "FREE") {
+      bookSales.push({
+        seller: "Google",
+        price: "FREE",
+      });
+    }
   }
 
   return NextResponse.json(bookSales);

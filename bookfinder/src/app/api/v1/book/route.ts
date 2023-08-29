@@ -38,7 +38,7 @@ export async function GET(request: Request) {
       description: book.volumeInfo.description,
       author: book.volumeInfo.authors,
       publisher: book.volumeInfo.publisher,
-      imageLinks: book.volumeInfo.imageLinks,
+      imageLinks: book.volumeInfo.imageLinks?.thumbnail,
       identifier:
         book.volumeInfo.industryIdentifiers === undefined
           ? ""
