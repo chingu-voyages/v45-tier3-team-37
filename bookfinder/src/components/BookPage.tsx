@@ -50,7 +50,11 @@ const BookPage = ({
                             description ? description : "No description available."
                         }
                     </p>
-                    <BookDescription description={description} />
+                    {
+                        description ?
+                        <BookDescription description={description} /> :
+                        null
+                    }
                 </div>
             </div>
         </div>

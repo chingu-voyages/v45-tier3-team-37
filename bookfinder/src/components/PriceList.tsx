@@ -47,15 +47,24 @@ const PriceList = ({bookSeller}:{bookSeller:IProps[]}) => {
                                 </div>
                                 {
                                     book.rating ?
+                                    (
                                     <div className="flex">
                                         <Rating
                                             defaultValue={book.rating}
                                             size="25px"
                                             spacing="5px"
                                             activeColor="#00917C"
+                                            readOnly={true}
                                         />
-                                        <div className="ml-1">({book.ratingsCount ? book.ratingsCount: null})</div>
-                                    </div>:
+                                        <div className="ml-1">
+                                            {
+                                                book.ratingsCount ?
+                                                book.ratingsCount:
+                                                null
+                                            }
+                                        </div>
+                                    </div>
+                                    ):
                                     <div>Not rated yet</div>
                                 }
                             </div>
