@@ -30,12 +30,14 @@ const Navbar = () => {
   return (
     <div className="left-0 top-0 w-full shadow-md">
       <div className="items-center justify-between bg-white px-8 py-6 md:flex">
-        <div className="flex cursor-pointer items-center text-2xl font-bold text-teal-600">
-          <span className="text-4xl">
-            <IoIosBook />
-          </span>
-          BookFinder
-        </div>
+        <Link href="/">
+          <div className="flex cursor-pointer items-center text-2xl font-bold text-teal-600">
+            <span className="text-4xl">
+              <IoIosBook />
+            </span>
+            BookFinder
+          </div>
+        </Link>
 
         <div
           onClick={() => setOpen(!open)}
