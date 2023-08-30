@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { IBookPreview } from "@/lib/book";
-import FavoriteBook from "./FavoriteBook";
 
 type IProps = IBookPreview;
 
@@ -44,13 +43,10 @@ const BookCard = ({ id, title, imageLinks, author, publisher, description, ident
 					alt={title}
 				/>
 			</Link>
-			<div className="flex justify-between py-2">
-				<FavoriteBook />
-				<div className="w-[85%] text-right text-xs xs:text-sm sm:text-base pt-2 line-clamp-1">
-					{
-						author ? author : "No author available"
-					}
-				</div>
+			<div className="text-right text-xs xs:text-sm sm:text-base pt-2 line-clamp-1">
+				{
+					author ? author : "No author available"
+				}
 			</div>
 			<div className="w-full h-14 text-right text-xs xs:text-sm sm:text-base line-clamp-2">
 				{

@@ -20,7 +20,6 @@ const Page = async ({
     }}) => {
     
     const id = params.bookid;
-    console.log('id: ',id);
     
     const bookSeller = await getPrice(id);
 

@@ -1,10 +1,9 @@
 "use client"
 
 import Link from "next/link";
-import { getPrice } from "@/utils/fetcher";
 import { Rating } from "react-custom-rating-component";
-import { use } from "react";
 import { IPrice } from "@/lib/book";
+import FavoriteBook from "./FavoriteBook";
 
 type IProps = IPrice;
 
@@ -32,14 +31,19 @@ const PriceList = ({bookSeller}:{bookSeller:IProps[]}) => {
 
                     return (
                         <div key={index} className="grid grid-cols-[2fr,1fr,1fr,1fr] border box-border p-2 mb-2">
-                            <div className="grid sm:grid-cols-2 grid-cols-1">
+                            <div className="grid grid-cols-1 sm:grid-cols-2">
                                 <div className="flex">
-                                    <div>{book.currency ? book.currency : ""}</div>
-                                    <div className="ml-1">
+                                    <div>
+                                        {
+                                            book.currency ? book.currency : ""
+                                        }
+                                    </div>
+                                    <div className="ml-1 mr-3">
                                         {
                                             book.price ? book.price : "No price"
                                         }
                                     </div>
+                                    <FavoriteBook />
                                 </div>
                                 {
                                     book.rating ?
@@ -54,14 +58,23 @@ const PriceList = ({bookSeller}:{bookSeller:IProps[]}) => {
                                     </div>:
                                     <div>Not rated yet</div>
                                 }
-
                             </div>
-                            <div className="text-center">{book.price ? "in stock" : "out of stock"}</div>
-                            <div>{book.seller ? book.seller : "Not defined"}</div>
+                            <div className="text-center">
+                                {
+                                    book.price ? "in stock" : "out of stock"
+                                }
+                            </div>
+                            <div className="text-center">
+                                {
+                                    book.seller ? book.seller : "Not defined"
+                                }
+                            </div>
                             <div className="flex justify-end">
                                 <Link
-                                    className="bg-teal-600 text-white text-center w-full md:w-[70%] transition duration-200 hover:bg-white  hover:text-teal-600"
-                                    href={book.buyLink ? book.buyLink : "/"}
+                                    className="bg-teal-600 text-white text-center w-full md:w-[80%] transition duration-200 hover:bg-white  hover:text-teal-600"
+                                    href={
+                                        book.buyLink ? book.buyLink : "/"
+                                    }
                                     target="blank"
                                     >
                                         Go to seller
