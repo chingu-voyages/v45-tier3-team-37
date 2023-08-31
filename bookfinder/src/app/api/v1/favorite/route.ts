@@ -1,6 +1,6 @@
 import connectMongoDB from "@/lib/mongodb";
 import { addFavoriteApiInput, deleteFavoriteApiInput } from "@/lib/schemas";
-import User from "@/models/user";
+import Favorite from "@/models/favorite";
 import { NextRequest, NextResponse } from "next/server";
 import { currentUser } from "@clerk/nextjs";
 import type { User as ClerkUser } from "@clerk/nextjs/api";
@@ -9,28 +9,23 @@ export async function POST(request: NextRequest) {
   const userClerk: ClerkUser | null = await currentUser();
 
   try {
-    const { identifier, cover, title, description } = addFavoriteApiInput.parse(
-      await request.json(),
-    );
+    const { identifier, cover, title, description, price } =
+      addFavoriteApiInput.parse(await request.json());
     await connectMongoDB();
 
-    const user = await User.findOne({
-      _id: userClerk?.id,
-    });
-    if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
-    }
-    user.favorites.push({
+    const favorite = await Favorite.create({
       identifier,
       cover,
       title,
       description,
+      price,
     });
 
-    return NextResponse.json(user);
+    return NextResponse.json(favorite);
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message); // Known error type
+      return NextResponse.json({ error: error.message }, { status: 500 });
     } else {
       console.error("An unknown error has occurred:", error);
     }
@@ -43,24 +38,19 @@ export async function DELETE(request: Request) {
     const { identifier } = deleteFavoriteApiInput.parse(await request.json());
     await connectMongoDB();
 
-    const user = await User.findOne({
+    const favorite = await Favorite.findOneAndDelete({
       _id: userClerk?.id,
+      identifier: identifier,
     });
-    if (!user) {
+    if (!favorite) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    const favorites = user.favorites.filter(
-      (favorite) => favorite.identifier !== identifier,
-    );
-
-    user.favorites = favorites;
-    await user.save();
-
-    return NextResponse.json(user);
+    return NextResponse.json({ message: "Favorite deleted" });
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message); // Known error type
+      return NextResponse.json({ error: error.message }, { status: 500 });
     } else {
       console.error("An unknown error has occurred:", error);
     }

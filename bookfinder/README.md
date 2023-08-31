@@ -118,7 +118,8 @@ To get started with Book Finder Web App, follow these steps:
 | `identifier`  | `string` | **Required**. Book Industry Identifier |
 | `cover`       | `string` | **Required**. Book Cover Url           |
 | `title`       | `string` | **Required**. Book Title               |
-| `description` | `string` | **Required**. Book Description         |
+| `description` | `string` | Book Description                       |
+| `price`       | `number` | Book Pirce                             |
 
 #### Delete a book from user favorite
 

@@ -24,6 +24,7 @@ export async function GET(request: Request) {
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message); // Known error type
+      return NextResponse.json({ error: error.message }, { status: 500 });
     } else {
       console.error("An unknown error has occurred:", error);
     }
