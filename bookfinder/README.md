@@ -131,6 +131,29 @@ To get started with Book Finder Web App, follow these steps:
 | :----------- | :------- | :------------------------------------- |
 | `identifier` | `string` | **Required**. Book Industry Identifier |
 
+```http
+  GET /api/v1/favorite
+```
+
+| Parameter | Type | Description |
+| :-------- | :--- | :---------- |
+
+```http
+  POST /api/v1/favorite/{favoriteId}
+```
+
+| Parameter    | Type     | Description                       |
+| :----------- | :------- | :-------------------------------- |
+| `favoriteId` | `string` | **Required**. MongoDB Favorite Id |
+
+```http
+  DELETE /api/v1/favorite/{favoriteId}
+```
+
+| Parameter    | Type     | Description                       |
+| :----------- | :------- | :-------------------------------- |
+| `favoriteId` | `string` | **Required**. MongoDB Favorite Id |
+
 ## Authors
 
 <table>
