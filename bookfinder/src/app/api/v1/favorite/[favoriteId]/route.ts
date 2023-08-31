@@ -17,12 +17,16 @@ export async function GET(
   try {
     await connectMongoDB();
 
-    const favorites = await Favorite.findOne({
+    console.log("favoriteId", favoriteId);
+
+    const favorite = await Favorite.findOne({
       userId: userClerk?.id,
-      id: favoriteId,
+      _id: favoriteId,
     });
 
-    return NextResponse.json(favorites);
+    console.log("favorite", favorite);
+
+    return NextResponse.json(favorite);
   } catch (error) {
     if (error instanceof Error) {
       console.error(error); // Known error type
