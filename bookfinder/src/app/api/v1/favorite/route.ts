@@ -1,6 +1,6 @@
 import connectMongoDB from "@/lib/mongodb";
 import { addFavoriteApiInput, deleteFavoriteApiInput } from "@/lib/schemas";
-import Favorite from "@/models/favorite";
+import { Favorite } from "@/models/favorite";
 import { NextRequest, NextResponse } from "next/server";
 import { currentUser } from "@clerk/nextjs";
 import type { User as ClerkUser } from "@clerk/nextjs/api";
@@ -41,11 +41,8 @@ export async function GET(request: NextRequest) {
   if (!userClerk) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
-  console.log(userClerk.id);
 
   try {
-    await connectMongoDB();
-
     const favorites = await Favorite.find({
       userId: userClerk?.id,
     });

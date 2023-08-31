@@ -1,5 +1,5 @@
 import connectMongoDB from "@/lib/mongodb";
-import User from "@/models/user";
+import { User } from "@/models/user";
 import { NextResponse } from "next/server";
 import { currentUser } from "@clerk/nextjs";
 import type { User as ClerkUser } from "@clerk/nextjs/api";
