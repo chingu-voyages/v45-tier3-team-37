@@ -8,6 +8,10 @@ import type { User as ClerkUser } from "@clerk/nextjs/api";
 export async function POST(request: NextRequest) {
   const userClerk: ClerkUser | null = await currentUser();
 
+  if (!userClerk) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     const { identifier, cover, title, description, price } =
       addFavoriteApiInput.parse(await request.json());
@@ -15,6 +19,7 @@ export async function POST(request: NextRequest) {
 
     const favorite = await Favorite.create({
       identifier,
+      userId: userClerk?.id,
       cover,
       title,
       description,
@@ -24,7 +29,31 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(favorite);
   } catch (error) {
     if (error instanceof Error) {
-      console.error(error.message); // Known error type
+      console.error(error); // Known error type
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    } else {
+      console.error("An unknown error has occurred:", error);
+    }
+  }
+}
+export async function GET(request: NextRequest) {
+  const userClerk: ClerkUser | null = await currentUser();
+  if (!userClerk) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+  console.log(userClerk.id);
+
+  try {
+    await connectMongoDB();
+
+    const favorites = await Favorite.find({
+      userId: userClerk?.id,
+    });
+
+    return NextResponse.json(favorites);
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error); // Known error type
       return NextResponse.json({ error: error.message }, { status: 500 });
     } else {
       console.error("An unknown error has occurred:", error);
@@ -34,6 +63,9 @@ export async function POST(request: NextRequest) {
 
 export async function DELETE(request: Request) {
   const userClerk: ClerkUser | null = await currentUser();
+  if (!userClerk) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
   try {
     const { identifier } = deleteFavoriteApiInput.parse(await request.json());
     await connectMongoDB();
@@ -49,7 +81,7 @@ export async function DELETE(request: Request) {
     return NextResponse.json({ message: "Favorite deleted" });
   } catch (error) {
     if (error instanceof Error) {
-      console.error(error.message); // Known error type
+      console.error(error); // Known error type
       return NextResponse.json({ error: error.message }, { status: 500 });
     } else {
       console.error("An unknown error has occurred:", error);
