@@ -7,7 +7,7 @@ import type { User as ClerkUser } from "@clerk/nextjs/api";
 export async function GET(request: Request) {
   const userClerk: ClerkUser | null = await currentUser();
   if (!userClerk) {
-    NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   try {
     await connectMongoDB();
