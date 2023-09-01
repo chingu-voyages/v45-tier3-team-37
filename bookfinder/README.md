@@ -1,9 +1,8 @@
 # Chingu Voyage45 Tier3 Team 37
 
 ## Book Finder
-    
-The Book Finder Web App is an innovative online platform designed to simplify the process of finding and purchasing books across multiple websites. This application offers users a convenient way to explore a vast collection of books from various online retailers, compare prices, and make informed purchasing decisions.
 
+The Book Finder Web App is an innovative online platform designed to simplify the process of finding and purchasing books across multiple websites. This application offers users a convenient way to explore a vast collection of books from various online retailers, compare prices, and make informed purchasing decisions.
 
 ## Table of contents
 
@@ -37,6 +36,7 @@ The Book Finder Web App is an innovative online platform designed to simplify th
 [Our project prototype on FIGMA](https://www.figma.com/file/ep8G9FmBjyI97BPPUsV9hZ/book-price-finder?type=design&node-id=0%3A1&mode=design&t=IG2ZP95Zdr7U8EZE-1)
 
 ## Screenshots
+
 ## Tools and Technologies
 
 ### UX/UI
@@ -49,8 +49,6 @@ The Book Finder Web App is an innovative online platform designed to simplify th
 - NextJS
 - React
 - Javascript
-
-
 
 ### Backend
 
@@ -73,10 +71,91 @@ To get started with Book Finder Web App, follow these steps:
 - Start the development server using `npm run dev` in the CLI.
 - Open your browser and navigate to the provided URL to explore and discover books!
 
-
 ## Sample Code
 
+## API Reference
+
+#### Get books
+
+```http
+  GET /api/v1/books
+```
+
+| Parameter   | Type     | Description                |
+| :---------- | :------- | :------------------------- |
+| `search`    | `string` | General input search       |
+| `title`     | `string` | Search Title Parameter     |
+| `author`    | `string` | Search Author Parameter    |
+| `publisher` | `string` | Search Publisher Parameter |
+
+#### Get prices
+
+```http
+  GET /api/v1/price
+```
+
+| Parameter | Type     | Description              |
+| :-------- | :------- | :----------------------- |
+| `isbn`    | `string` | Book Industry Identifier |
+
+#### User
+
+```http
+  POST /api/v1/user
+```
+
+| Parameter | Type | Description |
+| :-------- | :--- | :---------- |
+
+#### Add book to user favorite
+
+```http
+  POST /api/v1/favorite
+```
+
+| Parameter     | Type     | Description                            |
+| :------------ | :------- | :------------------------------------- |
+| `identifier`  | `string` | **Required**. Book Industry Identifier |
+| `cover`       | `string` | **Required**. Book Cover Url           |
+| `title`       | `string` | **Required**. Book Title               |
+| `description` | `string` | Book Description                       |
+| `price`       | `number` | Book Pirce                             |
+
+#### Delete a book from user favorite
+
+```http
+  POST /api/v1/favorite
+```
+
+| Parameter    | Type     | Description                            |
+| :----------- | :------- | :------------------------------------- |
+| `identifier` | `string` | **Required**. Book Industry Identifier |
+
+```http
+  GET /api/v1/favorite
+```
+
+| Parameter | Type | Description |
+| :-------- | :--- | :---------- |
+
+```http
+  POST /api/v1/favorite/{favoriteId}
+```
+
+| Parameter    | Type     | Description                       |
+| :----------- | :------- | :-------------------------------- |
+| `favoriteId` | `string` | **Required**. MongoDB Favorite Id |
+
+```http
+  DELETE /api/v1/favorite/{favoriteId}
+```
+
+| Parameter    | Type     | Description                       |
+| :----------- | :------- | :-------------------------------- |
+| `favoriteId` | `string` | **Required**. MongoDB Favorite Id |
+
 ## Authors
+
 <table>
   <tbody>
     <tr>
