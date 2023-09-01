@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import { IBookPreview } from "@/lib/book";
-
-type IProps = IBookPreview;
+import {NoInfo } from "@/lib/book";
 
 
-const BookCard = ({ id, title, imageLinks, author, publisher, description, identifier, date }: IProps, noInfo: string) => {
+type IProps = NoInfo;
+
+const BookCard = ({ id, title, imageLinks, author, publisher, description, identifier, date, noInfo }: IProps) => {
 
 	const query = {
 		title: title,
@@ -44,6 +44,9 @@ const BookCard = ({ id, title, imageLinks, author, publisher, description, ident
 					alt={title}
 				/>
 			</Link>
+
+			{noInfo ? null : <> 
+			
 			<div className="text-right text-xs xs:text-sm sm:text-base pt-2 line-clamp-1">
 				{
 					author ? author : "No author available"
@@ -54,6 +57,7 @@ const BookCard = ({ id, title, imageLinks, author, publisher, description, ident
 					publisher ? publisher : "No publisher available"
 				}
 			</div>
+			</>}
 			<Link
 				className="bg-teal-600 shadow-[0_3px_5px_0_rgba(0,0,0,0.3)] transition duration-200 hover:bg-white"
 				href={{

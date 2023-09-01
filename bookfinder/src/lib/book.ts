@@ -18,6 +18,6 @@ export interface IPrice {
 	buyLink: string;
 }
 
-export interface NoInfo {
-  noInfo: string;
+export interface NoInfo extends IBookPreview{
+  noInfo: boolean;
 }

@@ -43,7 +43,7 @@ export default function BooksForYou()  {
         
         <Slider {...settings}>
           <div className="object-cover p-6" >
-          <BookCard
+          <BookCard noInfo={true}
           
 				/>
           </div>
