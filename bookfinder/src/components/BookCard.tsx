@@ -4,7 +4,8 @@ import { IBookPreview } from "@/lib/book";
 
 type IProps = IBookPreview;
 
-const BookCard = ({ id, title, imageLinks, author, publisher, description, identifier, date }: IProps) => {
+
+const BookCard = ({ id, title, imageLinks, author, publisher, description, identifier, date }: IProps, noInfo: string) => {
 
 	const query = {
 		title: title,
