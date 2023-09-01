@@ -8,6 +8,7 @@ export const addFavoriteApiInput = z.object({
   identifier: z.string().nonempty(),
   cover: z.string().nonempty(),
   title: z.string().nonempty(),
+  seller: z.string().nonempty(),
   description: z.string(),
   price: z.number(),
 });

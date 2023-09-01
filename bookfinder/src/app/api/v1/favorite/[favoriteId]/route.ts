@@ -46,8 +46,8 @@ export async function DELETE(
     await connectMongoDB();
 
     const favorite = await Favorite.findOneAndDelete({
-      _id: userClerk?.id,
-      id: favoriteId,
+      userId: userClerk?.id,
+      _id: favoriteId,
     });
     if (!favorite) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
