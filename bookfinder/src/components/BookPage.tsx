@@ -1,11 +1,25 @@
 "use client"
 
 import Image from "next/image";
-import FavoriteBook from "./FavoriteBook";
+import BookDescription from "./BookDescription";
 
-const BookPage = ({...rest}) => {
-
-    const { id, title, imageLinks, author, publisher, description, isbn, date } = rest;
+const BookPage = ({
+    title,
+    imageLinks,
+    author,
+    publisher,
+    description,
+    identifier,
+    date
+}:{
+    title: string;
+    imageLinks: string,
+    author: string;
+    publisher: string;
+    description: string;
+    identifier: string;
+    date: string;
+}) => {
 
     return (
         <div className="grid grid-cols-[1fr,3fr] gap-4 p-3 bg-gray-100">
@@ -19,7 +33,7 @@ const BookPage = ({...rest}) => {
                     src={imageLinks ? imageLinks : '/no-image.png'}
                     alt={title}
                 />
-                <div>{date}</div>
+                <div className="text-sm">{date}</div>
             </div>
             <div className="flex flex-col gap-3">
                 <div className="w-full text-2xl text-teal-600">
@@ -27,7 +41,6 @@ const BookPage = ({...rest}) => {
                 </div>
                 <div>{author ? author : "Author not available"}</div>
                 <div>{publisher ? publisher : "Publisher not available"}</div>
-                <FavoriteBook />
                 <div>
                     <div className="text-lg font-semibold">
                         Description
@@ -37,6 +50,11 @@ const BookPage = ({...rest}) => {
                             description ? description : "No description available."
                         }
                     </p>
+                    {
+                        description ?
+                        <BookDescription description={description} /> :
+                        null
+                    }
                 </div>
             </div>
         </div>

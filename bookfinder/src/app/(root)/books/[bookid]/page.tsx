@@ -20,8 +20,12 @@ const Page = async ({
     }}) => {
     
     const id = params.bookid;
-    console.log('id: ',id);
-    
+    const favoriteData = {
+		identifier: searchParams.identifier,
+		cover: searchParams.imageLinks,
+		title: searchParams.title,
+		description: searchParams.description,
+	}
     const bookSeller = await getPrice(id);
 
     if (!bookSeller) {
@@ -31,7 +35,7 @@ const Page = async ({
     return (
         <div className="w-full">
             <BookPage {...searchParams} />
-            <PriceList bookSeller={bookSeller}/>
+            <PriceList bookSeller={bookSeller} favoriteData={favoriteData} />
         </div>
     );
 }

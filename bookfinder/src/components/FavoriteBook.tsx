@@ -1,15 +1,59 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MdFavoriteBorder } from "react-icons/md";
 import { MdFavorite } from "react-icons/md";
+import { createFavorite, deleteFavorite, getFavoriteById } from "@/utils/fetcher";
 
-const FavoriteBook = () => {
+interface IFavoriteBook {
+	id: string;
+	price: number;
+}
 
-    const [isFavorite, setIsFavorite] = useState(false);
+const FavoriteBook = ({
+	favoriteData,
+	sellerPrice,
+}:{
+	favoriteData: {
+        identifier: string;
+        cover: string;
+        title: string
+        description: string;
+	},
+	sellerPrice: {
+		seller: string;
+		price: number;
+	}
+}) => {
+
+	const identifier= favoriteData.identifier;
+	const cover = favoriteData.cover;
+	const title = favoriteData.title;
+	const description = favoriteData.description;
+	const seller = sellerPrice.seller;
+	const price = sellerPrice.price;
+
+    const [isFavorite, setIsFavorite] = useState<boolean>(false);
+	const [favoriteBook, setFavoriteBook] = useState<IFavoriteBook>();
     
-    //to do - if session check book id to know if it is favorite book
+    useEffect(() => {
+		getFavoriteById(identifier)
+		.then(response => {
+			if(response && response.seller === sellerPrice.seller) {
+				setIsFavorite(true);
+				setFavoriteBook({id: response._id, price: response.price});
+			}
+		})
+	}, []);
 
 	function handleFavorite (favorite: boolean) {
-		//to do - function to add or to remove favorite books in db
+
+		if(!isFavorite) {
+			createFavorite({ identifier, cover, title, description, seller, price });
+		}
+
+		if(isFavorite && favoriteBook) {
+			deleteFavorite(favoriteBook.id)
+		}
+		
 		setIsFavorite(favorite);
 	}
 

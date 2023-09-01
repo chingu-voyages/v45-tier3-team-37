@@ -1,6 +1,7 @@
 import { IBookPreview, IPrice } from "@/lib/book";
 import absoluteUrl from "./absoluteUrl";
 import { notFound } from "next/navigation";
+import { DELETE } from "@/app/api/v1/favorite/[favoriteId]/route";
 
 export const searchBooks = async ({
 	search,
@@ -43,6 +44,67 @@ export const getPrice = async (id: string): Promise<IPrice[]> => {
 
 	const res = await fetch(url, {
 		cache: "no-store"
+	});
+
+	const json = res.json();
+
+	if (res.ok) return json;
+
+	if (res.status === 404) return notFound();
+
+	throw new Error(await json);
+};
+
+export const createFavorite = async ({
+	identifier,
+	cover,
+	title,
+	description,
+	seller,
+	price,
+}: {
+	identifier: string;
+    cover: string;
+    title: string
+    description: string;
+	seller: string;
+	price: number
+}) => {
+	const url = absoluteUrl(`/api/v1/favorite`);
+
+	const res = await fetch(url, {
+		method: "POST",
+		body: JSON.stringify({identifier, cover, title, description, seller, price })
+	});
+
+	const json = res.json();
+
+	if (res.ok) return json;
+
+	throw new Error(await json);
+};
+
+export const getFavoriteById = async (identifier: string) => {
+	const url = absoluteUrl(`/api/v1/favorite/${identifier}`);
+
+	const res = await fetch(url, {
+		cache: "no-store"
+	});
+
+	const json = res.json();
+
+	if (res.ok) return json;
+
+	if (res.status === 404) return notFound();
+
+	throw new Error(await json);
+};
+
+export const deleteFavorite = async (identifier: string) => {
+	const url = absoluteUrl(`/api/v1/favorite/${identifier}`);
+
+	const res = await fetch(url, {
+		method: "DELETE"
 	});
 
 	const json = res.json();
