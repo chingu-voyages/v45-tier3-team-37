@@ -1,5 +1,5 @@
 import connectMongoDB from "@/lib/mongodb";
-import { Favorite } from "@/models/favorite";
+import Favorite from "@/models/favorite";
 import { currentUser } from "@clerk/nextjs";
 import { NextRequest, NextResponse } from "next/server";
 import type { User as ClerkUser } from "@clerk/nextjs/api";
@@ -17,16 +17,12 @@ export async function GET(
   try {
     await connectMongoDB();
 
-    console.log("favoriteId", favoriteId);
-
-    const favorite = await Favorite.findOne({
+    const favorites = await Favorite.findOne({
       userId: userClerk?.id,
-      _id: favoriteId,
+      id: favoriteId,
     });
 
-    console.log("favorite", favorite);
-
-    return NextResponse.json(favorite);
+    return NextResponse.json(favorites);
   } catch (error) {
     if (error instanceof Error) {
       console.error(error); // Known error type
