@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const { identifier, cover, title, description, price } =
+    const { identifier, cover, title, description, price, seller } =
       addFavoriteApiInput.parse(await request.json());
     await connectMongoDB();
 
@@ -24,6 +24,7 @@ export async function POST(request: NextRequest) {
       title,
       description,
       price,
+      seller,
     });
 
     return NextResponse.json(favorite);
