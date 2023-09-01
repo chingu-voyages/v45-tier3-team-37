@@ -4,8 +4,11 @@ import React, { useState } from "react";
 import { IoIosBook } from "react-icons/io";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { MdClose } from "react-icons/md";
-import { SignedIn, SignedOut, useClerk } from "@clerk/nextjs";
+import { SignedIn, SignedOut, useUser } from "@clerk/nextjs";
 import Link from "next/link";
+
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import SignOutButton from "./SignOutButton";
 
 type CountryProps = {
   abbreviation: string;
@@ -14,8 +17,7 @@ type CountryProps = {
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-
-  const { signOut } = useClerk();
+  const { user } = useUser();
 
   const countries: CountryProps[] = [
     { abbreviation: "ENG", value: "English" },
@@ -28,14 +30,16 @@ const Navbar = () => {
   const handleLanguageChange = () => {};
 
   return (
-    <div className="left-0 top-0 w-full shadow-md">
-      <div className="items-center justify-between bg-white px-8 py-6 md:flex">
-        <div className="flex cursor-pointer items-center text-2xl font-bold text-teal-600">
-          <span className="text-4xl">
-            <IoIosBook />
-          </span>
-          BookFinder
-        </div>
+    <div className="left-0 top-0 mb-4 w-full shadow-md">
+      <div className="m-auto max-w-7xl items-center justify-between bg-white px-8 py-6 md:flex">
+        <Link href="/">
+          <div className="flex cursor-pointer items-center text-2xl font-bold text-teal-600">
+            <span className="text-4xl">
+              <IoIosBook />
+            </span>
+            BookFinder
+          </div>
+        </Link>
 
         <div
           onClick={() => setOpen(!open)}
@@ -65,15 +69,51 @@ const Navbar = () => {
                 {
                   // TODO: Create page for favorites, and also create a card to show when there are no favorites.
                 }
-                <Link className="hover:text-teal-600" href="/favourites">
-                  Favorites
-                </Link>
-                <button
-                  onClick={() => signOut()}
-                  className="rounded-md border-2 border-teal-600 p-2 hover:bg-teal-50"
-                >
-                  Sign Out
-                </button>
+
+                <div className="flex flex-col gap-4 md:hidden">
+                  <p className="text-sm">
+                    Signed in as:{" "}
+                    <span className="font-bold">
+                      {user?.emailAddresses[0].emailAddress}
+                    </span>
+                  </p>
+                  <Link className="hover:text-teal-600" href="/favourites">
+                    View Favorite Books
+                  </Link>
+                  <SignOutButton />
+                </div>
+
+                <Popover>
+                  <PopoverTrigger className="hidden transition duration-300 hover:opacity-70 sm:block">
+                    <img
+                      className="h-12 w-12 rounded-full"
+                      src={user?.imageUrl}
+                      alt="User image"
+                    />
+                  </PopoverTrigger>
+
+                  <PopoverContent className="flex w-full flex-col gap-3">
+                    <div className="flex items-center gap-2">
+                      <img
+                        className="h-12 w-12 rounded-full"
+                        src={user?.imageUrl}
+                        alt="User image"
+                      />
+
+                      <div>
+                        <p className="text-sm font-bold">{user?.fullName}</p>
+                        <p className="text-bold text-sm">
+                          {user?.emailAddresses[0].emailAddress}
+                        </p>
+                      </div>
+                    </div>
+                    <hr />
+                    <Link className="hover:text-teal-600" href="/favourites">
+                      See Favorite Books
+                    </Link>
+                    <SignOutButton />
+                  </PopoverContent>
+                </Popover>
               </div>
             </SignedIn>
 
