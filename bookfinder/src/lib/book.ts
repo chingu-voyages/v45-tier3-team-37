@@ -12,7 +12,7 @@ export interface IBookPreview {
 export interface IPrice {
 	seller: string;
 	currency: string;
-    price: string;
+    price: number;
 	rating: number;
 	ratingsCount: string;
 	buyLink: string;
