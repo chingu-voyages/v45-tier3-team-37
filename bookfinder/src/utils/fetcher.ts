@@ -1,7 +1,6 @@
 import { IBookPreview, IPrice } from "@/lib/book";
 import absoluteUrl from "./absoluteUrl";
 import { notFound } from "next/navigation";
-import { DELETE } from "@/app/api/v1/favorite/[favoriteId]/route";
 
 export const searchBooks = async ({
 	search,
@@ -84,6 +83,22 @@ export const createFavorite = async ({
 	throw new Error(await json);
 };
 
+export const getFavorite = async () => {
+	const url = absoluteUrl(`/api/v1/favorite`);
+
+	const res = await fetch(url, {
+		cache: "no-store"
+	});
+
+	const json = res.json();
+
+	if (res.ok) return json;
+
+	if (res.status === 404) return notFound();
+
+	throw new Error(await json);
+};
+
 export const getFavoriteById = async (identifier: string) => {
 	const url = absoluteUrl(`/api/v1/favorite/${identifier}`);
 
@@ -100,8 +115,8 @@ export const getFavoriteById = async (identifier: string) => {
 	throw new Error(await json);
 };
 
-export const deleteFavorite = async (identifier: string) => {
-	const url = absoluteUrl(`/api/v1/favorite/${identifier}`);
+export const deleteFavorite = async (id: string) => {
+	const url = absoluteUrl(`/api/v1/favorite/${id}`);
 
 	const res = await fetch(url, {
 		method: "DELETE"

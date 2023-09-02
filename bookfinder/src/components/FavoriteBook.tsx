@@ -33,7 +33,7 @@ const FavoriteBook = ({
 
     const [isFavorite, setIsFavorite] = useState<boolean>(false);
 	const [favoriteBook, setFavoriteBook] = useState<IFavoriteBook>();
-    
+	
     useEffect(() => {
 		getFavoriteById(identifier)
 		.then(response => {
