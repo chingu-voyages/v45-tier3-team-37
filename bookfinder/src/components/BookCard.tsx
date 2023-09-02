@@ -20,7 +20,7 @@ const BookCard = ({ id, title, imageLinks, author, publisher, description, ident
 	return(
 	<div className="flex p-[10px] justify-center bg-zinc-100 border border-black overflow-hidden select-none">
 		<div className="flex flex-col w-full">
-			<div className="py-1 h-16">
+			<div className={`py-1 ${noInfo ? "" : "h-16"}`}>
 				<div
 					className="text-md font-medium text-center text-teal-600 line-clamp-2 transition duration-300 hover:text-teal-600 active:opacity-80"
 				>
@@ -57,7 +57,8 @@ const BookCard = ({ id, title, imageLinks, author, publisher, description, ident
 					publisher ? publisher : "No publisher available"
 				}
 			</div>
-			</>}
+			
+	
 			<Link
 				className="bg-teal-600 shadow-[0_3px_5px_0_rgba(0,0,0,0.3)] transition duration-200 hover:bg-white"
 				href={{
@@ -65,8 +66,10 @@ const BookCard = ({ id, title, imageLinks, author, publisher, description, ident
 					query: query
 				}}
 				>
+					
 				<div className="text-center text-white text-sm py-[5px] transition duration-200 hover:text-teal-600">See all books</div>
 			</Link>
+			</>}
 		</div>
 	</div>
 	);
