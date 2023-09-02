@@ -43,34 +43,26 @@ export default function BooksForYou()  {
         
         <Slider {...settings}>
           <div className="object-cover p-6" >
-          <BookCard noInfo={true}
-          
-				/>
+          <BookCard noInfo={true}/>
           </div>
             <div className="object-cover p-6" >
-          <BookCard
-				/>
+          <BookCard noInfo={true}/>
           </div>
             <div className="object-cover p-6" >
-          <BookCard
-          
-				/>
+          <BookCard noInfo={true}/>
           </div>
           <div className="object-cover p-6" >
-          <BookCard
-				/>
+          <BookCard noInfo={true}/>
           </div>
             <div className="object-cover p-6" >
-          <BookCard
-				/>
+          <BookCard noInfo={true}/>
           </div>
             <div className="object-cover p-6" >
-          <BookCard
-				/>
+          <BookCard noInfo={true}/>
           </div>
-         
+        
         </Slider>
         </div>
-     
+    
     );
   }

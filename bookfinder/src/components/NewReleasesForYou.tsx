@@ -41,59 +41,28 @@ export default function NewReleasesForYou()  {
         <section className="h-30 p-7 object-cover">
         <div className="text-2xl font-bold tracking-wide">New Releases For You</div>
         
-        <Slider {...settings}>
-          <div className="object-cover p-4" >
-          <BookCard
-					id={"1"}
-					title={"title"}
-					author={"author"}
-          size={"50%"}
-
-				/>
+         <Slider {...settings}>
+          <div className="object-cover p-6" >
+          <BookCard noInfo={true}/>
           </div>
-            <div className="object-cover p-4" >
-          <BookCard
-					id={"1"}
-					title={"title"}
-					author={"author"}
-          size={"50%"}
-				/>
+            <div className="object-cover p-6" >
+          <BookCard noInfo={true}/>
           </div>
-            <div className="object-cover p-4" >
-          <BookCard
-					id={"1"}
-					title={"title"}
-					author={"author"}
-          size={"50%"}
-				/>
+            <div className="object-cover p-6" >
+          <BookCard noInfo={true}/>
           </div>
-           <div className="object-cover p-4" >
-          <BookCard
-					id={"1"}
-					title={"title"}
-					author={"author"}
-          size={"50%"}
-				/>
+          <div className="object-cover p-6" >
+          <BookCard noInfo={true}/>
           </div>
-            <div className="object-cover p-4" >
-          <BookCard
-					id={"1"}
-					title={"title"}
-					author={"author"}
-          size={"50%"}
-				/>
+            <div className="object-cover p-6" >
+          <BookCard noInfo={true}/>
           </div>
-            <div className="object-cover p-4" >
-          <BookCard
-					id={"1"}
-					title={"title"}
-					author={"author"}
-          size={"50%"}
-				/>
+            <div className="object-cover p-6" >
+          <BookCard noInfo={true}/>
           </div>
-         
+        
         </Slider>
         </section>
-     
+    
     );
   }

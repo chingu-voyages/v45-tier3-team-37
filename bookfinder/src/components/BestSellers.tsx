@@ -41,40 +41,28 @@ export default function BestSellers()  {
         <section className="h-30 p-7 object-cover">
         <div className="text-2xl font-bold tracking-wide">Best Sellers</div>
         
-        <Slider {...settings}>
-          <div className="object-cover p-4" >
-          <BookCard
-
-				/>
+         <Slider {...settings}>
+          <div className="object-cover p-6" >
+          <BookCard noInfo={true}/>
           </div>
-            <div className="object-cover p-4" >
-          <BookCard
-
-				/>
+            <div className="object-cover p-6" >
+          <BookCard noInfo={true}/>
           </div>
-            <div className="object-cover p-4" >
-          <BookCard
-
-				/>
+            <div className="object-cover p-6" >
+          <BookCard noInfo={true}/>
           </div>
-           <div className="object-cover p-4" >
-          <BookCard
-
-				/>
+          <div className="object-cover p-6" >
+          <BookCard noInfo={true}/>
           </div>
-            <div className="object-cover p-4" >
-          <BookCard
-
-				/>
+            <div className="object-cover p-6" >
+          <BookCard noInfo={true}/>
           </div>
-            <div className="object-cover p-4" >
-          <BookCard
-
-				/>
+            <div className="object-cover p-6" >
+          <BookCard noInfo={true}/>
           </div>
-         
+        
         </Slider>
         </section>
-     
+    
     );
   }
