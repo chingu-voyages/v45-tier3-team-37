@@ -42,7 +42,7 @@ const BookCard = ({ id, title, imageLinks, author, publisher, description, ident
 					sizes="100%"
 					src={imageLinks ? imageLinks : '/no-image.png'}
 					alt={title}
-				/>
+				  />
 			</Link>
 			<div className="flex justify-between py-2">
 				<FavoriteBook />
