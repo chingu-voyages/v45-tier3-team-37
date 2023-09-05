@@ -7,7 +7,17 @@ import FavoriteBook from "./FavoriteBook";
 
 type IProps = IPrice;
 
-const PriceList = ({bookSeller}:{bookSeller:IProps[]}) => {
+const PriceList = ({
+    bookSeller, favoriteData
+}:{
+    bookSeller:IProps[],
+    favoriteData: {
+        identifier: string;
+        cover: string;
+        title: string
+        description: string;
+    }
+}) => {
 
     if (bookSeller.length <= 0) {
         return (
@@ -43,7 +53,10 @@ const PriceList = ({bookSeller}:{bookSeller:IProps[]}) => {
                                             book.price ? book.price : "No price"
                                         }
                                     </div>
-                                    <FavoriteBook />
+                                    <FavoriteBook
+                                        favoriteData={favoriteData}
+                                        sellerPrice={{seller: book.seller, price:book.price}}
+                                    />
                                 </div>
                                 {
                                     book.rating ?
@@ -51,15 +64,15 @@ const PriceList = ({bookSeller}:{bookSeller:IProps[]}) => {
                                     <div className="flex">
                                         <Rating
                                             defaultValue={book.rating}
-                                            size="25px"
-                                            spacing="5px"
+                                            size="20px"
+                                            spacing="1px"
                                             activeColor="#00917C"
                                             readOnly={true}
                                         />
-                                        <div className="ml-1">
+                                        <div className="ml-1 flex flex-col align-baseline">
                                             {
                                                 book.ratingsCount ?
-                                                book.ratingsCount:
+                                                <div className="">{`(${book.ratingsCount})`}</div> :
                                                 null
                                             }
                                         </div>
