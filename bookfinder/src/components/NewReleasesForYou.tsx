@@ -62,35 +62,35 @@ export default function NewReleasesForYou()  {
       ]
     };
     return (
-        <section className="h-30 p-7 object-cover">
+        <section className="h-30 p-7">
         <div className="text-2xl font-bold tracking-wide">New Releases For You</div>
         
          <Slider {...settings}>
-          <div className="object-cover p-6" >
+          <div className="p-6" >
           <BookCard noInfo={true}/>
           </div>
-            <div className="object-cover p-6" >
+            <div className="p-6" >
           <BookCard noInfo={true}/>
           </div>
-            <div className="object-cover p-6" >
+            <div className="p-6" >
           <BookCard noInfo={true}/>
           </div>
-          <div className="object-cover p-6" >
+          <div className="p-6" >
           <BookCard noInfo={true}/>
           </div>
-            <div className="object-cover p-6" >
+            <div className="p-6" >
           <BookCard noInfo={true}/>
           </div>
-            <div className="object-cover p-6" >
+            <div className="p-6" >
           <BookCard noInfo={true}/>
           </div>
-          <div className="object-cover p-6" >
+          <div className="p-6" >
           <BookCard noInfo={true}/>
           </div>
-          <div className="object-cover p-6" >
+          <div className="p-6" >
           <BookCard noInfo={true}/>
           </div>
-          <div className="object-cover p-6" >
+          <div className="p-6" >
           <BookCard noInfo={true}/>
           </div>
         

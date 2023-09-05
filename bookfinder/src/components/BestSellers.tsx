@@ -65,35 +65,35 @@ export default function BestSellers()  {
       ]
     };
     return (
-        <section className="h-30 p-7 object-cover">
+        <section className="h-30 p-7">
         <div className="text-2xl font-bold tracking-wide">Best Sellers</div>
         
          <Slider {...settings}>
-          <div className=" p-6" >
+          <div className="p-6" >
           <BookCard noInfo={true}/>
           </div>
-            <div className="object-cover p-6" >
+            <div className="p-6" >
           <BookCard noInfo={true}/>
           </div>
-            <div className="object-cover p-6" >
+            <div className="p-6" >
           <BookCard noInfo={true}/>
           </div>
-          <div className="object-cover p-6" >
+          <div className="p-6" >
           <BookCard noInfo={true}/>
           </div>
-            <div className="object-cover p-6" >
+            <div className="p-6" >
           <BookCard noInfo={true}/>
           </div>
-            <div className="object-cover p-6" >
+            <div className="p-6" >
           <BookCard noInfo={true}/>
           </div>
-          <div className="object-cover p-6" >
+          <div className="p-6" >
           <BookCard noInfo={true}/>
           </div>
-          <div className="object-cover p-6" >
+          <div className="p-6" >
           <BookCard noInfo={true}/>
           </div>
-          <div className="object-cover p-6" >
+          <div className="p-6" >
           <BookCard noInfo={true}/>
           </div>
         
