@@ -2,9 +2,9 @@
 'use client';
 import Slider from 'react-slick';
 import BookCard from "./BookCard";
+import {ArrowProps} from "../lib/types"
 
-
-function SampleNextArrow(props) {
+function SampleNextArrow(props: ArrowProps) {
   const { className, style, onClick } = props;
   return (
     <div
@@ -15,7 +15,7 @@ function SampleNextArrow(props) {
   );
 }
 
-function SamplePrevArrow(props) {
+function SamplePrevArrow(props: ArrowProps) {
   const { className, style, onClick } = props;
   return (
     <div
