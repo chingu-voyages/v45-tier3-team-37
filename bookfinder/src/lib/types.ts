@@ -82,3 +82,9 @@ export interface GoogleBookVolume {
   accessInfo: AccessInfo;
   searchInfo: SearchInfo;
 }
+
+export interface ArrowProps {
+  className?: string, 
+  style?: React.CSSProperties,
+  onClick?: () => void
+}
