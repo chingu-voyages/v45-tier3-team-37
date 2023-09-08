@@ -4,9 +4,6 @@ import BookCard from './BookCard';
 import { ArrowProps } from '../lib/types';
 import { useEffect, useState } from 'react';
 
-interface BookInfoType {
-	book_image: string;
-}
 
 function SampleNextArrow(props: ArrowProps) {
 	const { className, style, onClick } = props;
@@ -41,24 +38,26 @@ function SamplePrevArrow(props: ArrowProps) {
 // 	}, []);
 // }
 
-const BestSellers = () => {
+
+const BestSellers = ({ imageLinks }: IProps) => {
+
 	const [ bookInfo, setBookInfo ] = useState([]);
 
-	// const callApi = () => {
 	useEffect(() => {
+    
 		const getData = async () => {
+    
 			const query = await fetch(
 				'https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=IxTopR5GOShHbpkyGXWkVnZBzNEdjdQr'
 			);
 			const response = await query.json();
-			console.log(response.results.books);
 
-			setBookInfo(response.results.books);
-			console.log('+++++++++ ', bookInfo);
+			setBookInfo((res)=>response.results.books);
 		};
 		getData();
+
 	}, []);
-	// };
+
 
 	const settings = {
 		dots: true,
@@ -99,36 +98,18 @@ const BestSellers = () => {
 		<section className="h-30 p-7">
 			<div className="text-2xl font-bold tracking-wide">Best Sellers</div>
 
-			{/* <button onClick={callApi}>TEST</button> */}
-
 			<Slider {...settings}>
-				<div className="p-6">
-					<BookCard noInfo={true} />
-				</div>
-				<div className="p-6">
-					<BookCard noInfo={true} />
-				</div>
-				<div className="p-6">
-					<BookCard noInfo={true} />
-				</div>
-				<div className="p-6">
-					<BookCard noInfo={true} />
-				</div>
-				<div className="p-6">
-					<BookCard noInfo={true} />
-				</div>
-				<div className="p-6">
-					<BookCard noInfo={true} />
-				</div>
-				<div className="p-6">
-					<BookCard noInfo={true} />
-				</div>
-				<div className="p-6">
-					<BookCard noInfo={true} />
-				</div>
-				<div className="p-6">
-					<BookCard noInfo={true} />
-				</div>
+        
+				{
+          bookInfo.length === 0 ? <div> Loading BestSellers</div> :(
+            bookInfo.map((book: any) =>
+          <div className="p-6" key={book.rank}>
+			        <BookCard imageLinks ={book.book_image} noInfo={true}/>
+          </div>)
+          )
+          
+        }
+        
 			</Slider>
 		</section>
 	);
