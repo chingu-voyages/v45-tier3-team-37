@@ -20,13 +20,14 @@ const BookCard = ({ id, title, imageLinks, author, publisher, description, ident
 	return(
 	<div className={`flex justify-center bg-zinc-100  overflow-hidden select-none ${noInfo ? "p-[2px]" : "p-[10px] border border-black"}`}>
 		<div className="flex flex-col w-full">
-			<div className={` ${noInfo ? "" : "py-1 h-16"}`}>
+				{noInfo ? null : <> 
+				<div className="py-1 h-16">
 				<div
 					className="text-md font-medium text-center text-teal-600 line-clamp-2 transition duration-300 hover:text-teal-600 active:opacity-80"
 				>
 					{title}
 				</div>
-			</div>
+			</div></>} 
 			<Link
 				className="relative pb-[130%] shadow-[0_5px_10px_0_rgba(0,0,0,0.3)]"
 				tabIndex={-1}

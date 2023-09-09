@@ -23,6 +23,7 @@ const BooksView = ({books}:{books:IProps[]}) => {
 					identifier={book.identifier}
 					date={book.date}
 					key={book.id}
+					noInfo = {book.noInfo}
 				/>
 			))}
 		</BooksGrid>

@@ -3,7 +3,10 @@ import Slider from 'react-slick';
 import BookCard from './BookCard';
 import { ArrowProps } from '../lib/types';
 import { useEffect, useState } from 'react';
-
+import { url } from 'inspector';
+import {IBookPreview } from "@/lib/book";
+import { getPrice } from '@/utils/fetcher';
+type IProps = IBookPreview;
 
 function SampleNextArrow(props: ArrowProps) {
 	const { className, style, onClick } = props;
@@ -41,18 +44,18 @@ function SamplePrevArrow(props: ArrowProps) {
 
 const BestSellers = ({ imageLinks }: IProps) => {
 
-	const [ bookInfo, setBookInfo ] = useState([]);
-
+	const [ bookInfoList, setBookInfo ] = useState([]);
 	useEffect(() => {
-    
+    console.log('bestsellers')
 		const getData = async () => {
     
 			const query = await fetch(
 				'https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=IxTopR5GOShHbpkyGXWkVnZBzNEdjdQr'
 			);
 			const response = await query.json();
-
+			
 			setBookInfo((res)=>response.results.books);
+		
 		};
 		getData();
 
@@ -94,24 +97,37 @@ const BestSellers = ({ imageLinks }: IProps) => {
 			}
 		]
 	};
+	
 	return (
-		<section className="h-30 p-7">
+		<>
+		<div className="h-30 p-7">
 			<div className="text-2xl font-bold tracking-wide">Best Sellers</div>
 
 			<Slider {...settings}>
         
 				{
-          bookInfo.length === 0 ? <div> Loading BestSellers</div> :(
-            bookInfo.map((book: any) =>
-          <div className="p-6" key={book.rank}>
-			        <BookCard imageLinks ={book.book_image} noInfo={true}/>
-          </div>)
-          )
-          
-        }
+        bookInfoList.length === 0 ? <div> Loading BestSellers</div> :(
+            bookInfoList.map((book: any) =>
+			
+        <div className="p-6" key={book.rank}>
+		<BookCard 
+					imageLinks ={book.book_image} 
+					noInfo={true} 
+					id={book.primary_isbn13}
+					title={book.title}
+					author={book.author}
+					publisher={book.publisher}
+					description={book.description}
+					key={book.rank}
+					identifier= {"identifier"}
+					date= {""}
+					/>
+        </div>)
+        )}
         
 			</Slider>
-		</section>
+		</div>
+		</>
 	);
 };
 
