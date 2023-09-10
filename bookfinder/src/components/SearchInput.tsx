@@ -8,6 +8,12 @@ const SearchInput = () => {
   const [input, setInput] = useState("");
   const [select, setSelect] = useState("search");
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    window.location.href = `/books?${select}=${input}`
+  }
+};
 
   return (
     <div className="left-0 top-0 w-full shadow-md">
@@ -28,8 +34,11 @@ const SearchInput = () => {
           placeholder="Enter your search..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
+          onKeyDown={handleKeyDown}
         />
-        <button className="w-full sm:w-auto bg-teal-600 text-white px-4 py-2 rounded-md">
+        <button 
+        
+        className="w-full sm:w-auto bg-teal-600 text-white px-4 py-2 rounded-md">
           <Link
             href={{
               pathname: `/books`,
