@@ -5,8 +5,10 @@ import { ArrowProps } from '../lib/types';
 import { useEffect, useState } from 'react';
 import { url } from 'inspector';
 import {IBookPreview } from "@/lib/book";
-import { getPrice } from '@/utils/fetcher';
+
 type IProps = IBookPreview;
+
+
 
 function SampleNextArrow(props: ArrowProps) {
 	const { className, style, onClick } = props;
@@ -30,18 +32,6 @@ function SamplePrevArrow(props: ArrowProps) {
 	);
 }
 
-// function callApi() {
-// 	useEffect(() => {
-// 		const getData = async () => {
-// 			const query = await fetch('https://jsonplaceholder.typicode.com/todos');
-// 			const response = await query.json();
-// 			console.log('+++++++++ ', response);
-// 		};
-// 		getData();
-// 	}, []);
-// }
-
-
 const BestSellers = ({ imageLinks }: IProps) => {
 
 	const [ bookInfoList, setBookInfo ] = useState([]);
@@ -60,6 +50,7 @@ const BestSellers = ({ imageLinks }: IProps) => {
 		getData();
 
 	}, []);
+	console.log(bookInfoList)
 
 
 	const settings = {
@@ -119,7 +110,7 @@ const BestSellers = ({ imageLinks }: IProps) => {
 					publisher={book.publisher}
 					description={book.description}
 					key={book.rank}
-					identifier= {"identifier"}
+					identifier= {book.primary_isbn13}
 					date= {""}
 					/>
         </div>)

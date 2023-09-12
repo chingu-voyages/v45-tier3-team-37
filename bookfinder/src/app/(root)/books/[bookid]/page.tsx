@@ -26,6 +26,7 @@ const Page = async ({
 		title: searchParams.title,
 		description: searchParams.description,
 	}
+    console.log('id from page' + id)
     const bookSeller = await getPrice(id);
 
     if (!bookSeller) {

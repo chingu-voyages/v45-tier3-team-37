@@ -16,6 +16,8 @@ const BookCard = ({ id, title, imageLinks, author, publisher, description, ident
 		identifier: identifier,
 		date: date,
 	}
+	
+	console.log('book card identifier' + identifier + 'noinfi' +noInfo)
 
 	return(
 	<div className={`flex justify-center bg-zinc-100  overflow-hidden select-none ${noInfo ? "p-[2px]" : "p-[10px] border border-black"}`}>
@@ -28,6 +30,24 @@ const BookCard = ({ id, title, imageLinks, author, publisher, description, ident
 					{title}
 				</div>
 			</div></>} 
+				{noInfo ? <Link
+				className="relative pb-[130%] shadow-[0_5px_10px_0_rgba(0,0,0,0.3)]"
+				tabIndex={-1}
+				href={{
+					pathname: `/books/${identifier}`,
+					query: query
+				}}
+			>
+				<Image
+					priority={true}
+					className="transition duration-200 hover:opacity-80 active:opacity-60 bg-light-grey"
+					fill
+					sizes="100%"
+					src={imageLinks ? imageLinks : '/no-image.png'}
+					alt={title}
+				/>
+			</Link> :
+
 			<Link
 				className="relative pb-[130%] shadow-[0_5px_10px_0_rgba(0,0,0,0.3)]"
 				tabIndex={-1}
@@ -44,7 +64,7 @@ const BookCard = ({ id, title, imageLinks, author, publisher, description, ident
 					src={imageLinks ? imageLinks : '/no-image.png'}
 					alt={title}
 				/>
-			</Link>
+			</Link>}
 
 			{noInfo ? null : <> 
 			
