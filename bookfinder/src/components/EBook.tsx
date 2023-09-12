@@ -3,6 +3,11 @@
 import Slider from 'react-slick';
 import BookCard from "./BookCard";
 import {ArrowProps} from "../lib/types"
+import { IBookPreview } from "@/lib/book";
+import React, { useEffect, useState } from 'react';
+
+
+type IProps = IBookPreview;
 
 function SampleNextArrow(props: ArrowProps) {
   const { className, style, onClick } = props;
@@ -25,8 +30,26 @@ function SamplePrevArrow(props: ArrowProps) {
     />
   );
 }
-export default function NewReleasesForYou()  {
+export default function EBook()  {
+const [ EBookList, setEBookList ] = useState([]);
+let books:any= []
+	useEffect(() => {
+    console.log('bestsellers')
+		const getData = async () => {
+    
+			const query = await fetch(
+				`https://www.googleapis.com/books/v1/volumes?q=flowers&filter=ebooks&key=AIzaSyBLVTkMbzjavGqGyXEtghzjx6oR3vYW6Zc`
+			);
+			const response = await query.json();
+			setEBookList(res=>response.items);
+	
+		};
+		getData();
   
+
+	}, []);
+  
+  console.log(EBookList)
     const settings = {
       dots: true,
       infinite: false,
@@ -64,37 +87,27 @@ export default function NewReleasesForYou()  {
     };
     return (
         <section className="h-30 p-7">
-        <div className="text-2xl font-bold tracking-wide">New Releases For You</div>
+        <div className="text-2xl font-bold tracking-wide">EBooks</div>
         
-         <Slider {...settings}>
-          <div className="p-6" >
-          <BookCard noInfo={true}/>
-          </div>
-            <div className="p-6" >
-          <BookCard noInfo={true}/>
-          </div>
-            <div className="p-6" >
-          <BookCard noInfo={true}/>
-          </div>
-          <div className="p-6" >
-          <BookCard noInfo={true}/>
-          </div>
-            <div className="p-6" >
-          <BookCard noInfo={true}/>
-          </div>
-            <div className="p-6" >
-          <BookCard noInfo={true}/>
-          </div>
-          <div className="p-6" >
-          <BookCard noInfo={true}/>
-          </div>
-          <div className="p-6" >
-          <BookCard noInfo={true}/>
-          </div>
-          <div className="p-6" >
-          <BookCard noInfo={true}/>
-          </div>
+        <Slider {...settings}>
         
+              {EBookList?.map((book:any) => (
+              <div className="p-6" key={book.rank}>
+                <BookCard 
+                      id={book.id}
+                      title={book.volumeInfo.title}
+                      imageLinks={book.volumeInfo.imageLinks.smallThumbnail}
+                      author={book.volumeInfo.authors}
+                      publisher={book.volumeInfo.publisher}
+                      description={book.volumeInfo.description}
+                      identifier={""}
+                      date={book.date}
+                      key={book.id}
+                      noInfo = {true}
+                      />
+                  </div>)
+              )}
+                
         </Slider>
         </section>
     
