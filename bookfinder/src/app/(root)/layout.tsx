@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import SearchInput from "@/components/SearchInput";
 import Footer from "@/components/Footer";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,8 +29,8 @@ export default function RootLayout({
             <Navbar />
             <SearchInput />
           </header>
-
           <main className="flex flex-col bg-inherit">{children}</main>
+          <Toaster />
           <Footer />
         </body>
       </html>

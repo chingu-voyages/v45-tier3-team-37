@@ -14,7 +14,8 @@ const PriceList = ({
     favoriteData: {
         identifier: string;
         cover: string;
-        title: string
+        title: string;
+        author: string[];
         description: string;
     }
 }) => {
@@ -22,7 +23,7 @@ const PriceList = ({
     if (bookSeller.length <= 0) {
         return (
             <div className="text-center py-10">
-                This book is not for sale.
+                On Google this book is not for sale in your region.
             </div>
         );
     }

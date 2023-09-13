@@ -2,10 +2,11 @@
 
 import Image from "next/image";
 import BookDescription from "./BookDescription";
+import BookAuthors from "./BookAuthors";
 
 const BookPage = ({
     title,
-    imageLinks,
+    cover,
     author,
     publisher,
     description,
@@ -13,8 +14,8 @@ const BookPage = ({
     date
 }:{
     title: string;
-    imageLinks: string,
-    author: string;
+    cover: string,
+    author: string[];
     publisher: string;
     description: string;
     identifier: string;
@@ -30,7 +31,7 @@ const BookPage = ({
                     width={"150"}
                     height={"200"}
                     sizes="(max-width: 468px) 90vw, (max-width: 1200px) 45vw"
-                    src={imageLinks ? imageLinks : '/no-image.png'}
+                    src={cover ? cover : '/no-image.png'}
                     alt={title}
                 />
                 <div className="text-sm">{date}</div>
@@ -39,7 +40,7 @@ const BookPage = ({
                 <div className="w-full text-2xl text-teal-600">
                     {title}
                 </div>
-                <div>{author ? author : "Author not available"}</div>
+                <div>{author ? <BookAuthors author={author}/> : "Author not available"}</div>
                 <div>{publisher ? publisher : "Publisher not available"}</div>
                 <div>
                     <div className="text-lg font-semibold">

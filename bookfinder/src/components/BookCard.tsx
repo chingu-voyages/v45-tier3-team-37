@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import {NoInfo } from "@/lib/book";
 
-
 type IProps = NoInfo;
 
 const BookCard = ({ id, title, imageLinks, author, publisher, description, identifier, date, noInfo }: IProps) => {
@@ -41,7 +40,7 @@ const BookCard = ({ id, title, imageLinks, author, publisher, description, ident
 					fill
 					sizes="100%"
 					src={imageLinks ? imageLinks : '/no-image.png'}
-					alt={title}
+					alt={title ? title : 'book cover'}
 				/>
 			</Link>
 
@@ -49,7 +48,7 @@ const BookCard = ({ id, title, imageLinks, author, publisher, description, ident
 			
 			<div className="text-right text-xs xs:text-sm sm:text-base pt-2 line-clamp-1">
 				{
-					author ? author : "No author available"
+					author ? author[0] : "No author available"
 				}
 			</div>
 			<div className="w-full h-14 text-right text-xs xs:text-sm sm:text-base line-clamp-2">
@@ -57,16 +56,13 @@ const BookCard = ({ id, title, imageLinks, author, publisher, description, ident
 					publisher ? publisher : "No publisher available"
 				}
 			</div>
-			
-	
 			<Link
 				className="bg-teal-600 shadow-[0_3px_5px_0_rgba(0,0,0,0.3)] transition duration-200 hover:bg-white"
 				href={{
 					pathname: `/books/${id}`,
 					query: query
 				}}
-				>
-					
+			>
 				<div className="text-center text-white text-sm py-[5px] transition duration-200 hover:text-teal-600">See all books</div>
 			</Link>
 			</>}
