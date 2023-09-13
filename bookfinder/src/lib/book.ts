@@ -2,7 +2,7 @@ export interface IBookPreview {
 	id?: string;
 	title?: string;
 	imageLinks?: string;
-	author?: string;
+	author?: string[];
 	publisher?: string;
     description?: string;
 	identifier?: string;

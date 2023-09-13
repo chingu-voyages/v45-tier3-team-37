@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const { identifier, cover, title, description, price, seller } =
+    const { identifier, cover, title, author, description, price, seller } =
       addFavoriteApiInput.parse(await request.json());
     await connectMongoDB();
 
@@ -22,12 +22,13 @@ export async function POST(request: NextRequest) {
       userId: userClerk?.id,
       cover,
       title,
+      author,
       description,
       price,
       seller,
     });
 
-    return NextResponse.json(favorite);
+    return NextResponse.json({ message: "Your choice has been saved!", favorite });
   } catch (error) {
     if (error instanceof Error) {
       console.error(error); // Known error type
@@ -42,6 +43,9 @@ export async function GET(request: NextRequest) {
   if (!userClerk) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
+
+  console.log('USERRR',userClerk);
+  
 
   try {
     const favorites = await Favorite.find({

@@ -7,7 +7,7 @@ import { IBookPreview } from "@/lib/book";
 type IProps = IBookPreview;
 
 const BooksView = ({books}:{books:IProps[]}) => {
-
+	
 	return (
 		<BooksGrid 
 			className={"grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-x-3 gap-y-5 m-2"}
@@ -24,6 +24,7 @@ const BooksView = ({books}:{books:IProps[]}) => {
 					date={book.date}
 					key={book.id}
 					noInfo = {book.noInfo}
+
 				/>
 			))}
 		</BooksGrid>

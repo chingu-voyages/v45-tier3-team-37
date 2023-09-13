@@ -46,8 +46,8 @@ export default async function Page({
     );
   }
 
-  function delayView(promise: any) {
-    return new Promise((resolve) => {
+  async function delayView(promise: any) {
+    return new Promise<any>((resolve) => {
       setTimeout(resolve, 1000);
     }).then(() => promise);
   }

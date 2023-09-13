@@ -7,7 +7,30 @@ const SearchInput = () => {
 
   const [input, setInput] = useState("");
   const [select, setSelect] = useState("search");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    LoadingBooks()
+  }
+};
+
+const LoadingBooks = () => {
+
+  if (input.trim() === "") {
+    setError("Please enter a search term."); // Set error message if input is empty
+  } else {
+  setLoading(true);
+
+  setTimeout(() => {
+    window.location.href = `/books?${select}=${input}`;
+    setLoading(false); 
+  }, 1000);
+  }
+
+}
 
   return (
     <div className="left-0 top-0 w-full shadow-md">
@@ -28,18 +51,18 @@ const SearchInput = () => {
           placeholder="Enter your search..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
+          onKeyDown={handleKeyDown}
         />
-        <button className="w-full sm:w-auto bg-teal-600 text-white px-4 py-2 rounded-md">
-          <Link
-            href={{
-              pathname: `/books`,
-              query: {[`${select}`]: input}
-            }}
-          >
-            SEARCH
-          </Link>
+        <button 
+        
+        className="w-full sm:w-auto bg-teal-600 text-white px-4 py-2 rounded-md"
+        
+        disabled={loading}
+        onClick={LoadingBooks} >
+          {loading ? "Loading..." : "SEARCH"}
         </button>
       </div>
+      {error && <p className="text-red-500">{error}</p>}
     </div>
   </div>
   );

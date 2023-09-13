@@ -6,6 +6,7 @@ const favoriteSchema = new mongoose.Schema(
     userId: { type: String, required: true },
     cover: { type: String },
     title: { type: String, required: true },
+    author: { type: Array, required: true },
     seller: { type: String, required: true },
     description: { type: String },
     price: { type: Number },
