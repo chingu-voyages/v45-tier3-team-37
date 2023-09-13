@@ -17,8 +17,9 @@ export async function GET(request: Request) {
 
   if (googleResponse) {
     const book = await googleResponse.json();
+    console.log('+++++++', id)
 
-    if (book.saleInfo.saleability === "FOR_SALE") {
+    if (book.saleInfo?.saleability === "FOR_SALE") {
       bookSales.push({
         seller: "Google",
         currency: book.saleInfo.listPrice?.currencyCode,
@@ -27,7 +28,7 @@ export async function GET(request: Request) {
         ratingsCount: book.volumeInfo.ratingsCount || "",
         buyLink: book.saleInfo.buyLink,
       });
-    } else if (book.saleInfo.saleability === "FREE") {
+    } else if (book.saleInfo?.saleability === "FREE") {
       bookSales.push({
         seller: "Google",
         price: "FREE",

@@ -21,7 +21,7 @@ const BookPage = ({
     identifier: string;
     date: string;
 }) => {
-
+    
     return (
         <div className="grid grid-cols-[1fr,3fr] gap-4 p-3 bg-gray-100">
             <div className="flex flex-col gap-1">
