@@ -49,7 +49,7 @@ const Page = async ({
     
     const bookSeller = await getPrice(id);
 
-    const ebayList = await ebayPrices(title, author);
+    //const ebayList = await ebayPrices(title, author);
     
 
     if (!bookSeller) {
