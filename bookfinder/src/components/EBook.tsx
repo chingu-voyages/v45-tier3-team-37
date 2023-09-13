@@ -34,7 +34,6 @@ export default function EBook()  {
 const [ EBookList, setEBookList ] = useState([]);
 let books:any= []
 	useEffect(() => {
-    console.log('bestsellers')
 		const getData = async () => {
     
 			const query = await fetch(
@@ -49,7 +48,6 @@ let books:any= []
 
 	}, []);
   
-  console.log(EBookList)
     const settings = {
       dots: true,
       infinite: false,

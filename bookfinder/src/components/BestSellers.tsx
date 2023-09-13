@@ -30,23 +30,11 @@ function SamplePrevArrow(props: ArrowProps) {
 	);
 }
 
-// function callApi() {
-// 	useEffect(() => {
-// 		const getData = async () => {
-// 			const query = await fetch('https://jsonplaceholder.typicode.com/todos');
-// 			const response = await query.json();
-// 			console.log('+++++++++ ', response);
-// 		};
-// 		getData();
-// 	}, []);
-// }
-
 
 const BestSellers = ({ imageLinks }: IProps) => {
 
 	const [ bookInfoList, setBookInfo ] = useState([]);
 	useEffect(() => {
-    console.log('bestsellers')
 		const getData = async () => {
     
 			const query = await fetch(

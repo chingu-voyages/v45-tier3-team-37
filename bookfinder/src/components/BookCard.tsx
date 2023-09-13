@@ -17,7 +17,6 @@ const BookCard = ({ id, title, imageLinks, author, publisher, description, ident
 		date: date,
 		id:id
 	}
-	console.log("bookcard" + query)
 	return(
 	<div className={`flex justify-center bg-zinc-100  overflow-hidden select-none ${noInfo ? "p-[2px]" : "p-[10px] border border-black"}`}>
 		<div className="flex flex-col w-full">
