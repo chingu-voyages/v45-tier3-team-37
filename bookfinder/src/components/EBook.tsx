@@ -30,6 +30,7 @@ function SamplePrevArrow(props: ArrowProps) {
     />
   );
 }
+
 export default function EBook()  {
 const [ EBookList, setEBookList ] = useState([]);
 let books:any= []
@@ -44,8 +45,6 @@ let books:any= []
 	
 		};
 		getData();
-  
-
 	}, []);
   
     const settings = {
@@ -85,8 +84,7 @@ let books:any= []
     };
     return (
         <section className="h-30 p-7">
-        <div className="text-2xl font-bold tracking-wide">EBooks</div>
-        
+        <div className="text-2xl font-bold tracking-wide">EBooks</div> 
         <Slider {...settings}>
           {
         EBookList.length === 0 ? <>
@@ -98,7 +96,6 @@ let books:any= []
           >Loading...</span>
         </div>
         </>:(
-            
               EBookList?.map((book:any) => (
               <div className="p-6" key={book.id}>
                 <BookCard 
@@ -114,8 +111,7 @@ let books:any= []
                       noInfo = {true}
                       />
                   </div>))
-          )}
-                
+          )}    
         </Slider>
         </section>
     

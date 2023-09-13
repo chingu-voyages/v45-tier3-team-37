@@ -58,8 +58,8 @@ const BookCard = ({ id, title, imageLinks, author, publisher, description, ident
 					publisher ? publisher : "No publisher available"
 				}
 			</div>
-			
-	
+				
+
 			<Link
 				className="bg-teal-600 shadow-[0_3px_5px_0_rgba(0,0,0,0.3)] transition duration-200 hover:bg-white"
 				href={{
