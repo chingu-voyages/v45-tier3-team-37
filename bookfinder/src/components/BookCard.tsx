@@ -1,10 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import { IBookPreview } from "@/lib/book";
+import {NoInfo } from "@/lib/book";
 
-type IProps = IBookPreview;
+type IProps = NoInfo;
 
-const BookCard = ({ id, title, imageLinks, author, publisher, description, identifier, date }: IProps) => {
+const BookCard = ({ id, title, imageLinks, author, publisher, description, identifier, date, noInfo }: IProps) => {
 
 	const query = {
 		title: title,
@@ -14,18 +14,19 @@ const BookCard = ({ id, title, imageLinks, author, publisher, description, ident
 		description: description,
 		identifier: identifier,
 		date: date,
+		id:id
 	}
-
 	return(
-	<div className="flex p-[10px] justify-center bg-zinc-100 border border-black overflow-hidden select-none">
+	<div className={`flex justify-center bg-zinc-100  overflow-hidden select-none ${noInfo ? "p-[2px]" : "p-[10px] border border-black"}`}>
 		<div className="flex flex-col w-full">
-			<div className="py-1 h-16">
+				{noInfo ? null : <> 
+				<div className="py-1 h-16">
 				<div
 					className="text-md font-medium text-center text-teal-600 line-clamp-2 transition duration-300 hover:text-teal-600 active:opacity-80"
 				>
 					{title}
 				</div>
-			</div>
+			</div></>} 
 			<Link
 				className="relative pb-[130%] shadow-[0_5px_10px_0_rgba(0,0,0,0.3)]"
 				tabIndex={-1}
@@ -40,12 +41,15 @@ const BookCard = ({ id, title, imageLinks, author, publisher, description, ident
 					fill
 					sizes="100%"
 					src={imageLinks ? imageLinks : '/no-image.png'}
-					alt={title}
+					alt={title ? title : 'book cover'}
 				/>
 			</Link>
+
+			{noInfo ? null : <> 
+			
 			<div className="text-right text-xs xs:text-sm sm:text-base pt-2 line-clamp-1">
 				{
-					author ? author : "No author available"
+					author ? author[0] : "No author available"
 				}
 			</div>
 			<div className="w-full h-14 text-right text-xs xs:text-sm sm:text-base line-clamp-2">
@@ -59,9 +63,10 @@ const BookCard = ({ id, title, imageLinks, author, publisher, description, ident
 					pathname: `/books/${id}`,
 					query: query
 				}}
-				>
+			>
 				<div className="text-center text-white text-sm py-[5px] transition duration-200 hover:text-teal-600">See all books</div>
 			</Link>
+			</>}
 		</div>
 	</div>
 	);
