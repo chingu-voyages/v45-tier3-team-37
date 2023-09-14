@@ -63,17 +63,22 @@ export const createFavorite = async ({
   title,
   author,
   description,
-  seller,
+  sellerName,
+  sellerBookId,
   price,
+  bookUrl,
 }: {
   identifier: string;
   cover: string;
   title: string;
   author: string[];
   description: string;
-  seller: string;
   price: number;
+  sellerName: string;
+  sellerBookId: string;
+  bookUrl: string;
 }) => {
+  const { getToken } = auth();
   const url = absoluteUrl(`/api/v1/favorite`);
 
   const res = await fetch(url, {
@@ -84,9 +89,12 @@ export const createFavorite = async ({
       title,
       author,
       description,
-      seller,
+      sellerName,
+      sellerBookId,
       price,
+      bookUrl,
     }),
+    headers: { Authorization: `Bearer ${await getToken()}` },
   });
 
   const json = res.json();
