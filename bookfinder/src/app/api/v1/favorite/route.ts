@@ -4,6 +4,7 @@ import { Favorite } from "@/models/favorite";
 import { NextRequest, NextResponse } from "next/server";
 import { currentUser } from "@clerk/nextjs";
 import type { User as ClerkUser } from "@clerk/nextjs/api";
+import mongoose from "mongoose";
 
 export async function POST(request: NextRequest) {
   const userClerk: ClerkUser | null = await currentUser();
@@ -15,7 +16,7 @@ export async function POST(request: NextRequest) {
   try {
     const { identifier, cover, title, author, description, price, seller } =
       addFavoriteApiInput.parse(await request.json());
-    await connectMongoDB();
+    if (!mongoose.connection.readyState) await connectMongoDB();
 
     const favorite = await Favorite.create({
       identifier,
@@ -47,10 +48,11 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  console.log("USERRR", userClerk);
+  // console.log("USERRR", userClerk);
 
   try {
-    await connectMongoDB();
+    if (!mongoose.connection.readyState) await connectMongoDB();
+
     const favorites = await Favorite.find({
       userId: userClerk?.id,
     });

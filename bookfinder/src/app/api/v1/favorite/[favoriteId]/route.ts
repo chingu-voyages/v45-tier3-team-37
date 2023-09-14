@@ -3,6 +3,7 @@ import { Favorite } from "@/models/favorite";
 import { currentUser } from "@clerk/nextjs";
 import { NextRequest, NextResponse } from "next/server";
 import type { User as ClerkUser } from "@clerk/nextjs/api";
+import mongoose from "mongoose";
 
 export async function GET(
   request: NextRequest,
@@ -15,7 +16,7 @@ export async function GET(
   }
 
   try {
-    await connectMongoDB();
+    if (!mongoose.connection.readyState) await connectMongoDB();
 
     const favorites = await Favorite.findOne({
       userId: userClerk?.id,
@@ -43,7 +44,7 @@ export async function DELETE(
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   try {
-    await connectMongoDB();
+    if (!mongoose.connection.readyState) await connectMongoDB();
 
     const favorite = await Favorite.findOneAndDelete({
       userId: userClerk?.id,
