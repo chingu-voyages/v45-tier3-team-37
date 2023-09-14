@@ -57,6 +57,53 @@ export const getPrice = async (id: string): Promise<IPrice[]> => {
   throw new Error(await json);
 };
 
+export const createFavoriteSSC = async ({
+  identifier,
+  cover,
+  title,
+  author,
+  description,
+  sellerName,
+  sellerBookId,
+  price,
+  bookUrl,
+}: {
+  identifier: string;
+  cover: string;
+  title: string;
+  author: string[];
+  description: string;
+  price: number;
+  sellerName: string;
+  sellerBookId: string;
+  bookUrl: string;
+}) => {
+  const { getToken } = auth();
+  const url = absoluteUrl(`/api/v1/favorite`);
+
+  const res = await fetch(url, {
+    method: "POST",
+    body: JSON.stringify({
+      identifier,
+      cover,
+      title,
+      author,
+      description,
+      sellerName,
+      sellerBookId,
+      price,
+      bookUrl,
+    }),
+    headers: { Authorization: `Bearer ${await getToken()}` },
+  });
+
+  const json = res.json();
+
+  if (res.ok) return json;
+
+  throw new Error(await json);
+};
+
 export const createFavorite = async ({
   identifier,
   cover,
@@ -105,12 +152,10 @@ export const createFavorite = async ({
 };
 
 export const getFavorite = async () => {
-  const { getToken } = auth();
   const url = absoluteUrl(`/api/v1/favorite`);
 
   const res = await fetch(url, {
     cache: "no-store",
-    headers: { Authorization: `Bearer ${await getToken()}` },
   });
 
   const json = res.json();
