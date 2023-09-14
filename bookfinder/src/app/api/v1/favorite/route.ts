@@ -28,7 +28,10 @@ export async function POST(request: NextRequest) {
       seller,
     });
 
-    return NextResponse.json({ message: "Your choice has been saved!", favorite });
+    return NextResponse.json({
+      message: "Your choice has been saved!",
+      favorite,
+    });
   } catch (error) {
     if (error instanceof Error) {
       console.error(error); // Known error type
@@ -44,10 +47,10 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  console.log('USERRR',userClerk);
-  
+  console.log("USERRR", userClerk);
 
   try {
+    await connectMongoDB();
     const favorites = await Favorite.find({
       userId: userClerk?.id,
     });
