@@ -7,9 +7,15 @@ const favoriteSchema = new mongoose.Schema(
     cover: { type: String },
     title: { type: String, required: true },
     author: { type: Array, required: true },
-    seller: { type: String, required: true },
+    seller: [
+      {
+        sellerName: { type: String, required: true },
+        sellerBookId: { type: String, required: true },
+        price: { type: Number },
+        bookUrl: { type: String, required: true },
+      },
+    ],
     description: { type: String },
-    price: { type: Number },
   },
   { timestamps: true },
 );
