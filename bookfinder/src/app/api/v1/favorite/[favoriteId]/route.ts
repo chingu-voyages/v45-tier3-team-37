@@ -18,12 +18,12 @@ export async function GET(
   try {
     if (!mongoose.connection.readyState) await connectMongoDB();
 
-    const favorites = await Favorite.findOne({
+    const favorite = await Favorite.findOne({
       userId: userClerk?.id,
       identifier: favoriteId,
     });
 
-    return NextResponse.json(favorites);
+    return NextResponse.json(favorite);
   } catch (error) {
     if (error instanceof Error) {
       console.error(error); // Known error type
@@ -51,7 +51,10 @@ export async function DELETE(
       _id: favoriteId,
     });
     if (!favorite) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+      return NextResponse.json(
+        { error: "Favorite not found" },
+        { status: 404 },
+      );
     }
 
     return NextResponse.json({ message: "Favorite deleted" });

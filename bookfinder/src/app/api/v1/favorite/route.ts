@@ -14,20 +14,52 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const { identifier, cover, title, author, description, price, seller } =
-      addFavoriteApiInput.parse(await request.json());
-    if (!mongoose.connection.readyState) await connectMongoDB();
-
-    const favorite = await Favorite.create({
+    const {
       identifier,
-      userId: userClerk?.id,
       cover,
       title,
       author,
       description,
+      sellerName,
+      sellerBookId,
       price,
-      seller,
+      bookUrl,
+    } = addFavoriteApiInput.parse(await request.json());
+    if (!mongoose.connection.readyState) await connectMongoDB();
+
+    let favorite = await Favorite.findOne({ identifier });
+
+    if (!favorite) {
+      favorite = await Favorite.create({
+        identifier,
+        userId: userClerk?.id,
+        cover,
+        title,
+        author,
+        seller: [
+          {
+            sellerName,
+            sellerBookId,
+            price,
+            bookUrl,
+          },
+        ],
+        description,
+      });
+      return NextResponse.json({
+        message: "Your choice has been saved!",
+        favorite,
+      });
+    }
+
+    favorite.seller.push({
+      sellerName,
+      sellerBookId,
+      price,
+      bookUrl,
     });
+
+    favorite.save();
 
     return NextResponse.json({
       message: "Your choice has been saved!",

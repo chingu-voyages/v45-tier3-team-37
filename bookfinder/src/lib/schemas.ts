@@ -11,7 +11,10 @@ export const addFavoriteApiInput = z.object({
   author: z.array(z.string()).nonempty(),
   seller: z.string().nonempty(),
   description: z.string(),
+  sellerName: z.string().nonempty(),
+  sellerBookId: z.string().nonempty(),
   price: z.number(),
+  bookUrl: z.string().nonempty(),
 });
 export const deleteFavoriteApiInput = z.object({
   identifier: z.string().nonempty(),
