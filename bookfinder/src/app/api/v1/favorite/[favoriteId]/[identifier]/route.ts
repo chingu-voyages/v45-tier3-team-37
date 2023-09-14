@@ -4,6 +4,7 @@ import { currentUser } from "@clerk/nextjs/server";
 import type { User as ClerkUser } from "@clerk/nextjs/api";
 import mongoose from "mongoose";
 import { NextRequest, NextResponse } from "next/server";
+import { FavoriteSeller } from "@/lib/types";
 
 export async function GET(
   request: NextRequest,
@@ -28,7 +29,7 @@ export async function GET(
     }
 
     const sellers = favorite.seller.filter(
-      (seller) => seller.sellerBookId !== sellerBookId,
+      (seller: FavoriteSeller) => seller.sellerBookId !== sellerBookId,
     );
     favorite.seller = sellers;
 
