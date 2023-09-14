@@ -1,6 +1,7 @@
 import { IBookPreview, IPrice } from "@/lib/book";
 import absoluteUrl from "./absoluteUrl";
 import { notFound } from "next/navigation";
+import { auth } from "@clerk/nextjs";
 
 export const searchBooks = async ({
   search,
@@ -96,10 +97,12 @@ export const createFavorite = async ({
 };
 
 export const getFavorite = async () => {
+  const { getToken } = auth();
   const url = absoluteUrl(`/api/v1/favorite`);
 
   const res = await fetch(url, {
     cache: "no-store",
+    headers: { Authorization: `Bearer ${await getToken()}` },
   });
 
   const json = res.json();
@@ -143,8 +146,7 @@ export const deleteFavorite = async (id: string) => {
   throw new Error(await json);
 };
 
-export const ebayPriceList = async(title: string, author: string) => {
-  
+export const ebayPriceList = async (title: string, author: string) => {
   let url = `https://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&SECURITY-APPNAME=${process.env.NEXT_PUBLIC_EBAY_APP}&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&keywords=${title}%20${author}&paginationInput.entriesPerPage=5`;
 
   const res = await fetch(url, {
@@ -158,4 +160,4 @@ export const ebayPriceList = async(title: string, author: string) => {
   if (res.status === 404) return notFound();
 
   throw new Error(await json);
-}
+};
