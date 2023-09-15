@@ -62,7 +62,8 @@ export async function POST(request: NextRequest) {
       bookUrl,
     });
 
-    favorite.save();
+    await favorite.save();
+    console.log(favorite);
 
     return NextResponse.json({
       message: "Your choice has been saved!",
