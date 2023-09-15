@@ -216,7 +216,7 @@ export const deleteFavorite = async (id: string, sellerBookId: string) => {
 };
 
 export const ebayPriceList = async (title: string, author: string) => {
-  let url = `https://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&SECURITY-APPNAME=${process.env.NEXT_PUBLIC_EBAY_APP}&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&keywords=${title}%20${author}&paginationInput.entriesPerPage=5`;
+  let url = `https://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&SECURITY-APPNAME=${process.env.NEXT_PUBLIC_EBAY_APP}&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&keywords=${title}%20${author}&paginationInput.entriesPerPage=10`;
 
   const res = await fetch(url, {
     cache: "no-store",

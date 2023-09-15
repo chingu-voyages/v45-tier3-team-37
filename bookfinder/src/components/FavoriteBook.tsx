@@ -46,6 +46,7 @@ const FavoriteBook = ({
   const [favoriteBook, setFavoriteBook] = useState<IFavoriteBook>();
 
   useEffect(() => {
+	//add if user is logged in do the following:
     getFavoriteById(identifier).then((response) => {
       if (
         response &&
@@ -56,7 +57,7 @@ const FavoriteBook = ({
         setFavoriteBook({ id: response._id, price: response.price });
       }
     });
-  }, []);
+  }, [favoriteData]);
 
   function handleFavorite(favorite: boolean) {
     if (!isFavorite) {

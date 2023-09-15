@@ -23,7 +23,7 @@ const PriceList = ({
   if (bookSeller.length <= 0) {
     return (
       <div className="py-10 text-center">
-        On Google this book is not for sale in your region.
+        There are not book for sale at the moment.
       </div>
     );
   }

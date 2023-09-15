@@ -1,5 +1,5 @@
 import connectMongoDB from "@/lib/mongodb";
-import { addFavoriteApiInput, deleteFavoriteApiInput } from "@/lib/schemas";
+import { addFavoriteApiInput } from "@/lib/schemas";
 import { Favorite } from "@/models/favorite";
 import { NextRequest, NextResponse } from "next/server";
 import { currentUser } from "@clerk/nextjs";
@@ -27,7 +27,10 @@ export async function POST(request: NextRequest) {
     } = addFavoriteApiInput.parse(await request.json());
     if (!mongoose.connection.readyState) await connectMongoDB();
 
-    let favorite = await Favorite.findOne({ identifier });
+    let favorite = await Favorite.findOne({
+      userId: userClerk?.id,
+      identifier,
+    });
 
     if (!favorite) {
       favorite = await Favorite.create({
@@ -79,8 +82,6 @@ export async function GET(request: NextRequest) {
   if (!userClerk) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
-
-  // console.log("USERRR", userClerk);
 
   try {
     if (!mongoose.connection.readyState) await connectMongoDB();

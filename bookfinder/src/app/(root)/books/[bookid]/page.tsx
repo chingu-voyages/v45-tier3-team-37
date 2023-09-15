@@ -48,20 +48,18 @@ const Page = async ({
     description: description,
   };
 
-  const publiDate = {
+  const publisherDate = {
     publisher: publisher,
     date: date,
   };
 
-  const bookData = { ...favoriteData, ...publiDate };
+  const bookData = { ...favoriteData, ...publisherDate };
 
-  const bookSeller = await getPrice(id);
+  const googleBook = await getPrice(id);
 
-  //const ebayList = await ebayPrices(title, author);
+  const ebayList = await ebayPrices(title, author);
 
-  if (!bookSeller) {
-    return <h3>Something went wrong! Please try again.</h3>;
-  }
+  const bookSeller = [...googleBook, ...ebayList ];
 
   return (
     <div className="w-full">
