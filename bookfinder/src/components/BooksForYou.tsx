@@ -2,7 +2,11 @@
 'use client';
 import Slider from 'react-slick';
 import BookCard from "./BookCard";
-import {ArrowProps} from "../lib/types"
+import {ArrowProps, FavoriteSeller} from "../lib/types"
+import { BookFavoriteDB } from "@/lib/types";
+import { getBooksByAuthor, getFavoriteSSC } from "@/utils/fetcher";
+import { useEffect, useState } from 'react';
+
 
 function SampleNextArrow(props: ArrowProps) {
   const { className, style, onClick } = props;
@@ -26,8 +30,27 @@ function SamplePrevArrow(props: ArrowProps) {
   );
 }
 
-export default function BooksForYou()  {
+export default async function BooksForYou()  {
   
+  const favorites = await getFavoriteSSC();
+  const [ booksFromAuthors, setBooksFromAuthors ] = useState<any>([]);
+  useEffect(() => {
+    if(favorites.length !== 0)
+        {
+            favorites.forEach((favorite: { 
+            id: string;
+            identifier: string;
+            cover?: string | undefined; 
+            title: string; 
+            authors: string[]; 
+            seller: FavoriteSeller[]; 
+            createdAt: string; }) => 
+          { const booksFromAuthor =  getBooksByAuthor(favorite)
+            setBooksFromAuthors((prev: any)=>[...prev,booksFromAuthor])
+          });
+        }
+  }, []);
+
     const settings = {
       dots: true,
       infinite: false,
@@ -68,33 +91,7 @@ export default function BooksForYou()  {
         <div className="text-2xl font-bold tracking-wide">Books For You</div>
         
       <Slider {...settings}>
-          <div className="p-6" >
-          <BookCard noInfo={true}/>
-          </div>
-            <div className="p-6" >
-          <BookCard noInfo={true}/>
-          </div>
-            <div className="p-6" >
-          <BookCard noInfo={true}/>
-          </div>
-          <div className="p-6" >
-          <BookCard noInfo={true}/>
-          </div>
-            <div className="p-6" >
-          <BookCard noInfo={true}/>
-          </div>
-            <div className="p-6" >
-          <BookCard noInfo={true}/>
-          </div>
-          <div className="p-6" >
-          <BookCard noInfo={true}/>
-          </div>
-          <div className="p-6" >
-          <BookCard noInfo={true}/>
-          </div>
-          <div className="p-6" >
-          <BookCard noInfo={true}/>
-          </div>
+        
         
         </Slider>
         </div>
