@@ -92,10 +92,7 @@ export default async function BooksForYou()  {
         
       <Slider {...settings}>
         {
-        booksFromAuthors.length === 0 ? <>
-		<div>
-		</div>
-		</>:(
+        booksFromAuthors.length === 0 ? null:(
         
 	 booksFromAuthors?.map((book:any) => (
               <div className="p-6" key={book.id}>
