@@ -6,7 +6,7 @@ import { FavoriteSeller } from "@/lib/types";
 
 
 export const getBooksByAuthor= async (
-  favorite:string[])=>{
+  author:string[])=>{
   
 
 

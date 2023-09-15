@@ -45,7 +45,7 @@ export default async function BooksForYou()  {
             authors: string[]; 
             seller: FavoriteSeller[]; 
             createdAt: string; }) => 
-          { const booksFromAuthor =  getBooksByAuthor(favorite)
+          { const booksFromAuthor =  getBooksByAuthor(favorite.authors)
             setBooksFromAuthors((prev: any)=>[...prev,booksFromAuthor])
           });
         }
