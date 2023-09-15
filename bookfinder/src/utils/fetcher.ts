@@ -165,6 +165,24 @@ export const getFavorite = async () => {
   throw new Error(await json);
 };
 
+export const getFavoriteSSC = async () => {
+  const { getToken } = auth();
+  const url = absoluteUrl(`/api/v1/favorite`);
+
+  const res = await fetch(url, {
+    cache: "no-store",
+    headers: { Authorization: `Bearer ${await getToken()}` },
+  });
+
+  const json = res.json();
+
+  if (res.ok) return json;
+
+  if (res.status === 404) return notFound();
+
+  throw new Error(await json);
+};
+
 export const getFavoriteById = async (identifier: string) => {
   const url = absoluteUrl(`/api/v1/favorite/${identifier}`);
 
