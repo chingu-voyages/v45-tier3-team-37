@@ -2,6 +2,15 @@ import { IBookPreview, IPrice } from "@/lib/book";
 import absoluteUrl from "./absoluteUrl";
 import { notFound } from "next/navigation";
 import { auth } from "@clerk/nextjs";
+import { FavoriteSeller } from "@/lib/types";
+
+
+export const getBooksByAuthor= async (
+  favorite:string[])=>{
+  
+
+
+}
 
 export const searchBooks = async ({
   search,
