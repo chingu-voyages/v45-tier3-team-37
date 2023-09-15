@@ -13,7 +13,7 @@ const Favourites = async () => {
       {favorites.length === 0 ? (
         <NoFavouritesCard />
       ) : (
-        <div className="flex w-28 gap-2">
+        <div className="flex w-28 gap-5">
           {favorites.map((fav: BookFavoriteDB) => (
             <FavoriteBookCard
               id={fav.Id}

@@ -20,7 +20,7 @@ const FavoriteBookCard = ({
   createdAt,
 }: FavoriteBookDetails) => {
   return (
-    <div className="flex flex-col items-center gap-10 rounded-md border-2 px-12 py-8">
+    <div className="flex flex-col items-center gap-3 rounded-md border-2 px-6 py-4 shadow-md">
       <img src={cover} alt="Book Cover" />
       <p>Title: {title}</p>
       <p>
