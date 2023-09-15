@@ -3,6 +3,7 @@ import { User } from "@/models/user";
 import { NextResponse } from "next/server";
 import { currentUser } from "@clerk/nextjs";
 import type { User as ClerkUser } from "@clerk/nextjs/api";
+import mongoose from "mongoose";
 
 export async function GET(request: Request) {
   const userClerk: ClerkUser | null = await currentUser();
@@ -10,7 +11,7 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   try {
-    await connectMongoDB();
+    if (!mongoose.connection.readyState) await connectMongoDB();
 
     let user = await User.findById(userClerk?.id);
     if (!user) {

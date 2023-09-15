@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const id = searchParams.get("id");  
+  const id = searchParams.get("id");
 
   if (!id) {
     return NextResponse.json({ error: "No results found" }, { status: 500 });
@@ -16,12 +16,33 @@ export async function GET(request: Request) {
   );
 
   if (googleResponse) {
-    const book = await googleResponse.json();
-    console.log('+++++++', id)
+    const book: GoogleBookVolume = await googleResponse.json();
+    // console.log("+++++++", id);
 
+    // dummy data for favorites tests
+    bookSales.push({
+      seller: "Ebay",
+      sellerBookId: `Ebay${id}`,
+      currency: "EUR",
+      price: 40,
+      rating: 3.5 || "",
+      ratingsCount: 1500 || "",
+      buyLink: "https://ebay.com",
+    });
+    bookSales.push({
+      seller: "Amazon",
+      sellerBookId: `AMZ${id}`,
+      currency: "EUR",
+      price: 39,
+      rating: 3.5 || "",
+      ratingsCount: 1500 || "",
+      buyLink: "https://amazon.com",
+    });
+    // end dummy
     if (book.saleInfo?.saleability === "FOR_SALE") {
       bookSales.push({
         seller: "Google",
+        sellerBookId: book.id,
         currency: book.saleInfo.listPrice?.currencyCode,
         price: book.saleInfo.listPrice?.amount,
         rating: book.volumeInfo.averageRating || "",
