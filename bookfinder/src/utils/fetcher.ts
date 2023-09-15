@@ -1,6 +1,7 @@
 import { IBookPreview, IPrice } from "@/lib/book";
 import absoluteUrl from "./absoluteUrl";
 import { notFound } from "next/navigation";
+import { auth } from "@clerk/nextjs";
 
 export const searchBooks = async ({
   search,
@@ -56,22 +57,73 @@ export const getPrice = async (id: string): Promise<IPrice[]> => {
   throw new Error(await json);
 };
 
-export const createFavorite = async ({
+export const createFavoriteSSC = async ({
   identifier,
   cover,
   title,
   author,
   description,
-  seller,
+  sellerName,
+  sellerBookId,
   price,
+  bookUrl,
 }: {
   identifier: string;
   cover: string;
   title: string;
   author: string[];
   description: string;
-  seller: string;
   price: number;
+  sellerName: string;
+  sellerBookId: string;
+  bookUrl: string;
+}) => {
+  const { getToken } = auth();
+  const url = absoluteUrl(`/api/v1/favorite`);
+
+  const res = await fetch(url, {
+    method: "POST",
+    body: JSON.stringify({
+      identifier,
+      cover,
+      title,
+      author,
+      description,
+      sellerName,
+      sellerBookId,
+      price,
+      bookUrl,
+    }),
+    headers: { Authorization: `Bearer ${await getToken()}` },
+  });
+
+  const json = res.json();
+
+  if (res.ok) return json;
+
+  throw new Error(await json);
+};
+
+export const createFavorite = async ({
+  identifier,
+  cover,
+  title,
+  author,
+  description,
+  sellerName,
+  sellerBookId,
+  price,
+  bookUrl,
+}: {
+  identifier: string;
+  cover: string;
+  title: string;
+  author: string[];
+  description: string;
+  price: number;
+  sellerName: string;
+  sellerBookId: string;
+  bookUrl: string;
 }) => {
   const url = absoluteUrl(`/api/v1/favorite`);
 
@@ -83,8 +135,10 @@ export const createFavorite = async ({
       title,
       author,
       description,
-      seller,
+      sellerName,
+      sellerBookId,
       price,
+      bookUrl,
     }),
   });
 
@@ -100,6 +154,24 @@ export const getFavorite = async () => {
 
   const res = await fetch(url, {
     cache: "no-store",
+  });
+
+  const json = res.json();
+
+  if (res.ok) return json;
+
+  if (res.status === 404) return notFound();
+
+  throw new Error(await json);
+};
+
+export const getFavoriteSSC = async () => {
+  const { getToken } = auth();
+  const url = absoluteUrl(`/api/v1/favorite`);
+
+  const res = await fetch(url, {
+    cache: "no-store",
+    headers: { Authorization: `Bearer ${await getToken()}` },
   });
 
   const json = res.json();
@@ -127,8 +199,8 @@ export const getFavoriteById = async (identifier: string) => {
   throw new Error(await json);
 };
 
-export const deleteFavorite = async (id: string) => {
-  const url = absoluteUrl(`/api/v1/favorite/${id}`);
+export const deleteFavorite = async (id: string, sellerBookId: string) => {
+  const url = absoluteUrl(`/api/v1/favorite/${id}/${sellerBookId}`);
 
   const res = await fetch(url, {
     method: "DELETE",
@@ -143,9 +215,8 @@ export const deleteFavorite = async (id: string) => {
   throw new Error(await json);
 };
 
-export const ebayPriceList = async(title: string, author: string) => {
-  
-  let url = `https://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&SECURITY-APPNAME=${process.env.NEXT_PUBLIC_EBAY_APP}&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&keywords=${title}%20${author}&paginationInput.entriesPerPage=5`;
+export const ebayPriceList = async (title: string, author: string) => {
+  let url = `https://svcs.ebay.com/services/search/FindingService/v1?OPERATION-NAME=findItemsByKeywords&SERVICE-VERSION=1.0.0&SECURITY-APPNAME=${process.env.NEXT_PUBLIC_EBAY_APP}&RESPONSE-DATA-FORMAT=JSON&REST-PAYLOAD&keywords=${title}%20${author}&paginationInput.entriesPerPage=10`;
 
   const res = await fetch(url, {
     cache: "no-store",
@@ -158,4 +229,4 @@ export const ebayPriceList = async(title: string, author: string) => {
   if (res.status === 404) return notFound();
 
   throw new Error(await json);
-}
+};

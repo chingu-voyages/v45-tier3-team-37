@@ -3,6 +3,7 @@ import { Favorite } from "@/models/favorite";
 import { currentUser } from "@clerk/nextjs";
 import { NextRequest, NextResponse } from "next/server";
 import type { User as ClerkUser } from "@clerk/nextjs/api";
+import mongoose from "mongoose";
 
 export async function GET(
   request: NextRequest,
@@ -15,14 +16,14 @@ export async function GET(
   }
 
   try {
-    await connectMongoDB();
+    if (!mongoose.connection.readyState) await connectMongoDB();
 
-    const favorites = await Favorite.findOne({
+    const favorite = await Favorite.findOne({
       userId: userClerk?.id,
       identifier: favoriteId,
     });
 
-    return NextResponse.json(favorites);
+    return NextResponse.json(favorite);
   } catch (error) {
     if (error instanceof Error) {
       console.error(error); // Known error type
@@ -43,14 +44,17 @@ export async function DELETE(
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   try {
-    await connectMongoDB();
+    if (!mongoose.connection.readyState) await connectMongoDB();
 
     const favorite = await Favorite.findOneAndDelete({
       userId: userClerk?.id,
       _id: favoriteId,
     });
     if (!favorite) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+      return NextResponse.json(
+        { error: "Favorite not found" },
+        { status: 404 },
+      );
     }
 
     return NextResponse.json({ message: "Favorite deleted" });

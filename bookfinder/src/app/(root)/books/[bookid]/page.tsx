@@ -4,64 +4,69 @@ import { getPrice } from "@/utils/fetcher";
 import ebayPrices from "@/utils/ebayPrices";
 
 const Page = async ({
-    params,
-    searchParams
-    } : {
-    params: {
-        bookid: string;
-    },
-    searchParams: {
-        title: string;
-        imageLinks: string;
-        author: string[];
-        publisher: string;
-        description: string;
-        identifier: string;
-        date: string;
-    }}) => {
+  params,
+  searchParams,
+}: {
+  params: {
+    bookid: string;
+  };
+  searchParams: {
+    title: string;
+    imageLinks: string;
+    author: string[];
+    publisher: string;
+    description: string;
+    identifier: string;
+    date: string;
+  };
+}) => {
+  const id = params.bookid;
+  const {
+    title,
+    imageLinks,
+    author,
+    publisher,
+    description,
+    identifier,
+    date,
+  } = searchParams;
 
-    const id = params.bookid;
-    const { title, imageLinks, author, publisher, description, identifier, date } = searchParams;
-
-    const authorArr:Array<string> = [];
-    if(!Array.isArray(author)) {
-        authorArr.push(author);
-    } else {
-        for(let i=0; i<author.length; i++) {
-            authorArr.push(author[i]);
-        }
+  const authorArr: Array<string> = [];
+  if (!Array.isArray(author)) {
+    authorArr.push(author);
+  } else {
+    for (let i = 0; i < author.length; i++) {
+      authorArr.push(author[i]);
     }
+  }
 
-    const favoriteData = {
-		identifier: identifier,
-		cover: imageLinks,
-		title: title,
-        author: authorArr,
-		description: description,
-	};
+  const favoriteData = {
+    identifier: identifier,
+    cover: imageLinks,
+    title: title,
+    author: authorArr,
+    description: description,
+  };
 
-    const publiDate = {
-        publisher: publisher,
-        date: date,
-    };
+  const publisherDate = {
+    publisher: publisher,
+    date: date,
+  };
 
-    const bookData = {...favoriteData, ...publiDate};
-    
-    const bookSeller = await getPrice(id);
+  const bookData = { ...favoriteData, ...publisherDate };
 
-    //const ebayList = await ebayPrices(title, author);
-    
+  const googleBook = await getPrice(id);
 
-    if (!bookSeller) {
-        return <h3>Something went wrong! Please try again.</h3>
-    }
+  const ebayList = await ebayPrices(title, author);
 
-    return (
-        <div className="w-full">
-            <BookPage {...bookData} />
-            <PriceList bookSeller={bookSeller} favoriteData={favoriteData} />
-        </div>
-    );
-}
+  const bookSeller = [...googleBook, ...ebayList ];
+
+  return (
+    <div className="w-full">
+      <BookPage {...bookData} />
+      <PriceList bookSeller={bookSeller} favoriteData={favoriteData} />
+    </div>
+  );
+};
 
 export default Page;

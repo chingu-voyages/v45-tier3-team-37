@@ -84,7 +84,26 @@ export interface GoogleBookVolume {
 }
 
 export interface ArrowProps {
-  className?: string, 
-  style?: React.CSSProperties,
-  onClick?: () => void
+  className?: string;
+  style?: React.CSSProperties;
+  onClick?: () => void;
+}
+
+export interface FavoriteSeller {
+  sellerName: string;
+  sellerBookId: string;
+  price?: number;
+  bookUrl: string;
+}
+export interface BookFavoriteDB {
+  Id: string;
+  identifier: string;
+  userId: string;
+  cover?: string;
+  title: string;
+  author: string[];
+  seller: FavoriteSeller[];
+  description?: string;
+  createdAt: string;
+  updatedAt: string;
 }
