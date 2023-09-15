@@ -5,7 +5,7 @@ import BookCard from "./BookCard";
 import {ArrowProps} from "../lib/types"
 import { IBookPreview } from "@/lib/book";
 import React, { useEffect, useState } from 'react';
-import {getBooks} from "../utils/fetcher"
+import {getEBooks} from "../utils/fetcher"
 
 type IProps = IBookPreview;
 
@@ -36,7 +36,7 @@ const [ EBookList, setEBookList ] = useState([]);
 let books:any= []
 	useEffect(() => {
 		
-  getBooks().then(response => {console.log(response); setEBookList(response.items);})
+  getEBooks().then(response => {console.log(response); setEBookList(response.items);})
   .catch((err) => {
     console.error('Error:', err);})
 	}, []);

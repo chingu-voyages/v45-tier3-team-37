@@ -2,7 +2,7 @@ import { IBookPreview, IPrice } from "@/lib/book";
 import absoluteUrl from "./absoluteUrl";
 import { notFound } from "next/navigation";
 
-export const getBooks  = async () => {
+export const getEBooks  = async () => {
 
 			const res = await fetch(
 				`https://www.googleapis.com/books/v1/volumes?q=flowers&filter=ebooks&key=AIzaSyBLVTkMbzjavGqGyXEtghzjx6oR3vYW6Zc`
