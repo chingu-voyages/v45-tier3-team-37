@@ -7,8 +7,16 @@ import { FavoriteSeller } from "@/lib/types";
 
 export const getBooksByAuthor= async (
   author:string[])=>{
-  
 
+			const query = await fetch(
+				`https://www.googleapis.com/books/v1/volumes?q=a&inauthor=${author[0]}&key=AIzaSyBLVTkMbzjavGqGyXEtghzjx6oR3vYW6Zc`
+			);
+			const res = await query.json();
+      const json = res.json();
+
+      if (res.ok) return json;
+
+      throw new Error(await json);
 
 }
 
