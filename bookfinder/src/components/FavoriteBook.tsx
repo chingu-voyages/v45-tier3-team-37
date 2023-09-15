@@ -92,21 +92,23 @@ const FavoriteBook = ({
     }
 
     if (isFavorite && favoriteBook) {
-      deleteFavorite(favoriteBook.id).then((response) => {
-        if (response.message) {
-          toast({
-            description: response.message,
-          });
-        }
-        if (response.error) {
-          toast({
-            variant: "destructive",
-            title: "Something went wrong!",
-            description:
-              "Please try again. If the problem persist, do not hesitate to contact us.",
-          });
-        }
-      });
+      deleteFavorite(favoriteBook.id, sellerPrice.sellerBookId).then(
+        (response) => {
+          if (response.message) {
+            toast({
+              description: response.message,
+            });
+          }
+          if (response.error) {
+            toast({
+              variant: "destructive",
+              title: "Something went wrong!",
+              description:
+                "Please try again. If the problem persist, do not hesitate to contact us.",
+            });
+          }
+        },
+      );
     }
 
     setIsFavorite(favorite);
