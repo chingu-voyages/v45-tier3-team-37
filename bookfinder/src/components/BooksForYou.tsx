@@ -91,6 +91,28 @@ export default async function BooksForYou()  {
         <div className="text-2xl font-bold tracking-wide">Books For You</div>
         
       <Slider {...settings}>
+        {
+        booksFromAuthors.length === 0 ? <>
+		<div>
+		</div>
+		</>:(
+        
+	 booksFromAuthors?.map((book:any) => (
+              <div className="p-6" key={book.id}>
+                <BookCard 
+                      id={book.id}
+                      title={book.volumeInfo.title}
+                      imageLinks={book.volumeInfo.imageLinks.smallThumbnail}
+                      author={book.volumeInfo.authors}
+                      publisher={book.volumeInfo.publisher}
+                      description={book.volumeInfo.description}
+                      identifier={""}
+                      date={book.volumeInfo.publishedDate}
+                      key={book.id}
+                      noInfo = {true}
+                      />
+                  </div>))
+        )}
         
         
         </Slider>
