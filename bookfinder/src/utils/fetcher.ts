@@ -199,8 +199,8 @@ export const getFavoriteById = async (identifier: string) => {
   throw new Error(await json);
 };
 
-export const deleteFavorite = async (id: string) => {
-  const url = absoluteUrl(`/api/v1/favorite/${id}`);
+export const deleteFavorite = async (id: string, sellerBookId: string) => {
+  const url = absoluteUrl(`/api/v1/favorite/${id}/${sellerBookId}`);
 
   const res = await fetch(url, {
     method: "DELETE",
