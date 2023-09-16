@@ -3,6 +3,16 @@ import absoluteUrl from "./absoluteUrl";
 import { notFound } from "next/navigation";
 import { auth } from "@clerk/nextjs";
 
+export const getEBooks  = async () => {
+
+			const res = await fetch(
+				`https://www.googleapis.com/books/v1/volumes?q=flowers&filter=ebooks&key=AIzaSyBLVTkMbzjavGqGyXEtghzjx6oR3vYW6Zc`
+			);
+			const json =  res.json();
+      if (res.ok) return json;
+      throw new Error(await json);
+	
+}
 export const searchBooks = async ({
   search,
   title,
