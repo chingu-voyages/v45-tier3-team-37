@@ -3,6 +3,7 @@
 import Slider from 'react-slick';
 import BookCard from "./BookCard";
 import {ArrowProps} from "../lib/types"
+import { getFavorite } from "@/utils/fetcher";
 
 function SampleNextArrow(props: ArrowProps) {
   const { className, style, onClick } = props;
@@ -27,6 +28,8 @@ function SamplePrevArrow(props: ArrowProps) {
 }
 
 export default function BooksForYou()  {
+  
+  const favorites =  getFavorite();
   
     const settings = {
       dots: true,

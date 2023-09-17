@@ -5,7 +5,7 @@ import BookCard from "./BookCard";
 import {ArrowProps} from "../lib/types"
 import { IBookPreview } from "@/lib/book";
 import React, { useEffect, useState } from 'react';
-
+import {getEBooks} from "../utils/fetcher"
 
 type IProps = IBookPreview;
 
@@ -35,16 +35,10 @@ export default function EBook()  {
 const [ EBookList, setEBookList ] = useState([]);
 let books:any= []
 	useEffect(() => {
-		const getData = async () => {
-    
-			const query = await fetch(
-				`https://www.googleapis.com/books/v1/volumes?q=flowers&filter=ebooks&key=AIzaSyBLVTkMbzjavGqGyXEtghzjx6oR3vYW6Zc`
-			);
-			const response = await query.json();
-			setEBookList(res=>response.items);
-	
-		};
-		getData();
+		
+  getEBooks().then(response => {console.log(response); setEBookList(response.items);})
+  .catch((err) => {
+    console.error('Error:', err);})
 	}, []);
   
     const settings = {
@@ -105,7 +99,7 @@ let books:any= []
                       author={book.volumeInfo.authors}
                       publisher={book.volumeInfo.publisher}
                       description={book.volumeInfo.description}
-                      identifier={""}
+                      identifier={book.id}
                       date={book.volumeInfo.publishedDate}
                       key={book.id}
                       noInfo = {true}
