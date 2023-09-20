@@ -13,6 +13,7 @@ export const getEBooks  = async () => {
       throw new Error(await json);
 	
 }
+
 export const searchBooks = async ({
   search,
   title,
@@ -114,6 +115,23 @@ export const createFavoriteSSC = async ({
   throw new Error(await json);
 };
 
+export const checkFavorite = async (sellerBookIds: string[]) => {
+  const url = absoluteUrl(`/api/v1/favorite/checkFavorites`);
+
+  const res = await fetch(url, {
+    method: "POST",
+    body: JSON.stringify(sellerBookIds),
+  });
+
+  const json = res.json();
+
+  if (res.ok) return json;
+
+  if (res.status === 404) return notFound();
+
+  throw new Error(await json);
+}
+
 export const createFavorite = async ({
   identifier,
   cover,
@@ -209,11 +227,29 @@ export const getFavoriteById = async (identifier: string) => {
   throw new Error(await json);
 };
 
-export const deleteFavorite = async (id: string, sellerBookId: string) => {
-  const url = absoluteUrl(`/api/v1/favorite/${id}/${sellerBookId}`);
+export const updateFavorite = async (id: string, sellerId: string) => {
+  const url = absoluteUrl(`/api/v1/favorite/${id}/${sellerId}`);
+
+  const res = await fetch(url, {
+    method: "PUT",
+    cache: "no-cache",
+  });
+
+  const json = res.json();
+
+  if (res.ok) return json;
+
+  if (res.status === 404) return notFound();
+
+  throw new Error(await json);
+};
+
+export const deleteFavorite = async (id: string) => {
+  const url = absoluteUrl(`/api/v1/favorite/${id}`);
 
   const res = await fetch(url, {
     method: "DELETE",
+    cache: "no-cache",
   });
 
   const json = res.json();

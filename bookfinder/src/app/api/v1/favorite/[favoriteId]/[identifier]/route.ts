@@ -45,3 +45,56 @@ export async function GET(
     }
   }
 }
+
+export async function PUT(
+  request: NextRequest,
+  { params }: { params: { favoriteId: string, identifier: string } },
+) {  
+  const userClerk: ClerkUser | null = await currentUser();
+  const { favoriteId, identifier } = params;
+
+  if (!userClerk) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  try {
+    if (!mongoose.connection.readyState) await connectMongoDB();
+
+    const favorite = await Favorite.findOne({
+      userId: userClerk?.id,
+      _id: favoriteId,
+    });
+
+    if (!favorite) {
+      return NextResponse.json(
+        { error: "Favorite not found" },
+        { status: 404 },
+      );
+    } else if (favorite.seller.length === 1) {
+      await Favorite.deleteOne({
+        userId: userClerk?.id,
+        _id: favoriteId,
+      });
+    } else {      
+      const favoriteSeller = await favorite.seller.filter((item: {
+        sellerName: string;
+        sellerBookId: string;
+        price: number;
+        bookUrl: string;
+      }) => item.sellerBookId !== identifier);
+      favorite.seller = await favoriteSeller;
+      await favorite.save();
+    }
+
+    return NextResponse.json({ message: "Favorite deleted" });
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error); // Known error type
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    } else {
+      console.error("An unknown error has occurred:", error);
+    }
+  }
+}
+
+

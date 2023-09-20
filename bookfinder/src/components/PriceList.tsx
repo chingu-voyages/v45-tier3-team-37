@@ -1,11 +1,25 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import { checkFavorite } from "@/utils/fetcher";
 import { Rating } from "react-custom-rating-component";
 import { IPrice } from "@/lib/book";
 import FavoriteBook from "./FavoriteBook";
 
 type IProps = IPrice;
+interface IFavorite {
+  favoriteId: string;
+  seller: [
+    {
+      bookUrl: string;
+      price: number;
+      sellerBookId: string;
+      SellerName: string;
+      _id: string;
+    }
+  ]
+}
 
 const PriceList = ({
   bookSeller,
@@ -20,13 +34,30 @@ const PriceList = ({
     description: string;
   };
 }) => {
-  if (bookSeller.length <= 0) {
-    return (
-      <div className="py-10 text-center">
-        There are not book for sale at the moment.
-      </div>
-    );
+  
+  const bookIds = () => {
+    const bookIdArr:string[] = [];
+    for (let i=0; i<bookSeller.length; i++) {
+      bookIdArr.push(bookSeller[i].sellerBookId)
+    }
+    return bookIdArr;
   }
+
+  const [ sellerBookIds, setSellerBookIds ] = useState<string[]>([]);
+  const [ favoriteBooks, setFavoriteBooks ] = useState<IFavorite>();
+
+  function check() {
+    checkFavorite(sellerBookIds)
+    .then(response => setFavoriteBooks(response[0]));
+  }
+
+  useEffect(() => {
+    if(sellerBookIds.length > 0) {
+      check();
+    } else {
+      setSellerBookIds(bookIds());
+    }
+  }, [sellerBookIds]);
 
   return (
     <div className="flex flex-col p-3">
@@ -37,7 +68,18 @@ const PriceList = ({
           <option value="rating">Rating</option>
         </select>
       </div>
-      {bookSeller?.map((book, index) => {
+      {
+      bookSeller?.map((book, index) => {
+        const favorite = () => {
+          if(favoriteBooks) {
+            for(let i=0; i < favoriteBooks.seller.length; i++) {
+              if(favoriteBooks.seller[i].sellerBookId === book.sellerBookId) {
+                return favoriteBooks.favoriteId
+              }
+            }
+          }
+        }
+        
         return (
           <div
             key={index}
@@ -49,7 +91,7 @@ const PriceList = ({
                 <div className="ml-1 mr-3">
                   {book.price ? book.price : "No price"}
                 </div>
-                <FavoriteBook favoriteData={favoriteData} sellerPrice={book} />
+                <FavoriteBook favoriteData={favoriteData} sellerPrice={book} bookId={favorite()} />
               </div>
               {book.rating ? (
                 <div className="flex">

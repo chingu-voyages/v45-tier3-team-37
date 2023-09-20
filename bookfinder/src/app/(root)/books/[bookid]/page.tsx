@@ -64,7 +64,15 @@ const Page = async ({
   return (
     <div className="w-full">
       <BookPage {...bookData} />
-      <PriceList bookSeller={bookSeller} favoriteData={favoriteData} />
+      {
+        bookSeller.length <= 0 ?
+        (
+          <div className="py-10 text-center">
+            There are not book for sale at the moment.
+          </div>
+        ) :
+        <PriceList bookSeller={bookSeller} favoriteData={favoriteData} />
+      }
     </div>
   );
 };
