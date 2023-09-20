@@ -120,7 +120,7 @@ export const checkFavorite = async (sellerBookIds: string[]) => {
 
   const res = await fetch(url, {
     method: "POST",
-    body: JSON.stringify(sellerBookIds),
+    body: JSON.stringify({sellerBookIds}),
   });
 
   const json = res.json();

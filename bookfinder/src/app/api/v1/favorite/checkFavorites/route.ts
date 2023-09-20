@@ -4,9 +4,13 @@ import { currentUser } from "@clerk/nextjs";
 import connectMongoDB from "@/lib/mongodb";
 import mongoose from "mongoose";
 import { Favorite } from "@/models/favorite";
+import { checkFavoriteApiInput } from "@/lib/schemas";
 
 export async function POST(request: NextRequest) {
-  const sellerBookIds:string[] = await request.json();
+  const {sellerBookIds} = checkFavoriteApiInput.parse(await request.json());
+
+  console.log('sellerBookIds: ',sellerBookIds);
+  
 
   const userClerk: ClerkUser | null = await currentUser();
   if (!userClerk) {

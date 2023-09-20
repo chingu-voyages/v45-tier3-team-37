@@ -48,7 +48,11 @@ const PriceList = ({
 
   function check() {
     checkFavorite(sellerBookIds)
-    .then(response => setFavoriteBooks(response[0]));
+    .then(response => {
+      if(response && response.length > 0) {
+        setFavoriteBooks(response[0])
+      } 
+    });
   }
 
   useEffect(() => {
