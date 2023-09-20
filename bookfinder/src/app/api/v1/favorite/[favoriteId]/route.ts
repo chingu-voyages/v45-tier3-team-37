@@ -39,14 +39,14 @@ export async function DELETE(
   { params }: { params: { favoriteId: string } },
 ) {
   const userClerk: ClerkUser | null = await currentUser();
-  const { favoriteId } = await params;
+  const { favoriteId } = params;
   if (!userClerk) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   try {
     if (!mongoose.connection.readyState) await connectMongoDB();
 
-    const favorite = await Favorite.findOneAndDelete({
+    const favorite = await Favorite.deleteOne({
       userId: userClerk?.id,
       _id: favoriteId,
     });
