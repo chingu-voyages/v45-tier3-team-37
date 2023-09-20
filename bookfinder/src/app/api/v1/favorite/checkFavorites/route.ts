@@ -7,10 +7,7 @@ import { Favorite } from "@/models/favorite";
 import { checkFavoriteApiInput } from "@/lib/schemas";
 
 export async function POST(request: NextRequest) {
-  const {sellerBookIds} = checkFavoriteApiInput.parse(await request.json());
-
-  console.log('sellerBookIds: ',sellerBookIds);
-  
+  const {sellerBookIds} = checkFavoriteApiInput.parse(await request.json());  
 
   const userClerk: ClerkUser | null = await currentUser();
   if (!userClerk) {

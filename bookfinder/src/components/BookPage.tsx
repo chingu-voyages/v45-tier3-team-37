@@ -30,7 +30,6 @@ const BookPage = ({
                     style={{ position: "static", boxShadow: "0 0 5px 1px gray" }}
                     width={"150"}
                     height={"200"}
-                    sizes="(max-width: 468px) 90vw, (max-width: 1200px) 45vw"
                     src={cover ? cover : '/no-image.png'}
                     alt={title}
                 />
@@ -43,18 +42,10 @@ const BookPage = ({
                 <div>{author ? <BookAuthors author={author}/> : "Author not available"}</div>
                 <div>{publisher ? publisher : "Publisher not available"}</div>
                 <div>
-                    <div className="text-lg font-semibold">
-                        Description
-                    </div>
-                    <p className="line-clamp-3">
-                        {
-                            description ? description : "No description available."
-                        }
-                    </p>
                     {
                         description ?
                         <BookDescription description={description} /> :
-                        null
+                        "No description available."
                     }
                 </div>
             </div>
