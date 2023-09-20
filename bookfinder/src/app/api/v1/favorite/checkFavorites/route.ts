@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import type { User as ClerkUser } from "@clerk/nextjs/api";
 import { currentUser } from "@clerk/nextjs";
 import connectMongoDB from "@/lib/mongodb";
 import mongoose from "mongoose";
