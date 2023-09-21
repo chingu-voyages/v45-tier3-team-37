@@ -36,9 +36,9 @@ const BookPage = ({
                 <div className="text-sm">{date}</div>
             </div>
             <div className="flex flex-col gap-3">
-                <div className="w-full text-2xl text-teal-600">
+                <h1 className="w-full text-teal-600">
                     {title}
-                </div>
+                </h1>
                 <div>{author ? <BookAuthors author={author}/> : "Author not available"}</div>
                 <div>{publisher ? publisher : "Publisher not available"}</div>
                 <div>
