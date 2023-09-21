@@ -45,7 +45,7 @@ const FavoriteBook = ({
     if (bookId) {
       setIsFavorite(true);
       setFavoriteBook({
-        favoriteId: bookId.favoriteId,
+        favoriteId: bookId,
       });
     }
   }, [bookId]);
