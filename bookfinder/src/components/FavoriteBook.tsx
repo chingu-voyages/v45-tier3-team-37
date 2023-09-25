@@ -3,19 +3,14 @@ import { MdFavoriteBorder } from "react-icons/md";
 import { MdFavorite } from "react-icons/md";
 import {
   createFavorite,
-  deleteFavorite,
-  getFavoriteById,
+  updateFavorite,
 } from "@/utils/fetcher";
 import { useToast } from "./ui/use-toast";
-
-interface IFavoriteBook {
-  id: string;
-  price: number;
-}
 
 const FavoriteBook = ({
   favoriteData,
   sellerPrice,
+  bookId,
 }: {
   favoriteData: {
     identifier: string;
@@ -30,6 +25,7 @@ const FavoriteBook = ({
     sellerBookId: string;
     buyLink: string;
   };
+  bookId: any;
 }) => {
   const { toast } = useToast();
   const identifier = favoriteData.identifier;
@@ -43,21 +39,16 @@ const FavoriteBook = ({
   const price = sellerPrice.price;
 
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
-  const [favoriteBook, setFavoriteBook] = useState<IFavoriteBook>();
+  const [favoriteBook, setFavoriteBook] = useState<{favoriteId: string}>();
 
   useEffect(() => {
-	//add if user is logged in do the following:
-    getFavoriteById(identifier).then((response) => {
-      if (
-        response &&
-        response.seller === sellerPrice.seller &&
-        response.price === sellerPrice.price
-      ) {
-        setIsFavorite(true);
-        setFavoriteBook({ id: response._id, price: response.price });
-      }
-    });
-  }, [favoriteData]);
+    if (bookId) {
+      setIsFavorite(true);
+      setFavoriteBook({
+        favoriteId: bookId,
+      });
+    }
+  }, [bookId]);
 
   function handleFavorite(favorite: boolean) {
     if (!isFavorite) {
@@ -74,8 +65,7 @@ const FavoriteBook = ({
       }).then((response) => {
         if (response.message) {
           setFavoriteBook({
-            id: response.favorite._id,
-            price: response.favorite.price,
+            favoriteId: response.favorite._id,
           });
           toast({
             description: response.message,
@@ -90,10 +80,10 @@ const FavoriteBook = ({
           });
         }
       });
+      setIsFavorite(favorite);
     }
-
     if (isFavorite && favoriteBook) {
-      deleteFavorite(favoriteBook.id, sellerPrice.sellerBookId).then(
+      updateFavorite(favoriteBook.favoriteId, sellerBookId).then(
         (response) => {
           if (response.message) {
             toast({
@@ -110,9 +100,8 @@ const FavoriteBook = ({
           }
         },
       );
+      setIsFavorite(favorite);
     }
-
-    setIsFavorite(favorite);
   }
 
   return (
